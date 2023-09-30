@@ -1,14 +1,13 @@
-import { CSSProperties, useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { DoubleBuffered } from "./double-buffered";
 import useResizeObserver from "@react-hook/resize-observer";
 
 type Props = {
   blob: Blob | null;
   scale: number;
-  style?: CSSProperties;
 };
 
-export function Viewport({ blob, scale, style }: Props) {
+export function PDF({ blob, scale }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const widthRef = useRef(0);
 
@@ -40,7 +39,15 @@ export function Viewport({ blob, scale, style }: Props) {
   });
 
   return (
-    <div ref={ref} style={style}>
+    <div
+      ref={ref}
+      style={{
+        overflowY: "auto",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#374151",
+      }}
+    >
       <DoubleBuffered blob={blob} scale={scale} />
     </div>
   );

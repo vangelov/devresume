@@ -1,5 +1,6 @@
 import { Resume, Work } from "../types";
 import { View, Text } from "@react-pdf/renderer";
+import { RichText } from "./rich-text";
 
 type ItemProps = {
   work: Work;
@@ -8,7 +9,7 @@ type ItemProps = {
 export function WorkItem({ work }: ItemProps) {
   return (
     <View>
-      <Text>{work.name}</Text>
+      <RichText>{work.name}</RichText>
     </View>
   );
 }
@@ -25,7 +26,7 @@ export function WorkSection({ resume }: SectionProps) {
       <Text>Work</Text>
 
       {resume.work.map(
-        (work) => work && <WorkItem key={work.name} work={work} />
+        (work) => work && work.name && <WorkItem key={work.name} work={work} />
       )}
     </View>
   );
