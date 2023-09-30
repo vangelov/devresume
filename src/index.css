@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+}
+
+.cm-editor {
+  height: 100%;
+  --test: red;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+::-webkit-scrollbar-corner {
+  background: #1e1e1e;
+}
