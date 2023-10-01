@@ -5,6 +5,8 @@ import { PDF, useRenderQueue } from "./rendering";
 import { YAMLEditor } from "./editing";
 import SplitPane, { Pane, SashContent } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
+import { PreviewControls } from "./controls";
+
 function sashRender(_: number, active: boolean) {
   return <SashContent active={active} type="vscode" />;
 }
@@ -14,14 +16,12 @@ function App() {
   const renderQueue = useRenderQueue();
   const [sizes, setSizes] = useState<Array<string | number>>(["80%"]);
   const [sizes2, setSizes2] = useState<Array<string | number>>(["40%"]);
-
-  const [j, setJ] = useState<object>({});
+  const [scale, setScale] = useState(1);
 
   async function onChange(yaml: string) {
     setCode(yaml);
 
     const { json, errors } = yamlToJSON(yaml);
-    if (json) setJ(json);
     console.log("t", json, errors);
 
     if (json) {
@@ -29,6 +29,14 @@ function App() {
     } else if (!yaml) {
       renderQueue.clear();
     }
+  }
+
+  function onZoomIn() {
+    setScale(scale + 0.2);
+  }
+
+  function onZoomOut() {
+    setScale(scale - 0.2);
   }
 
   return (
@@ -41,7 +49,9 @@ function App() {
         flexDirection: "column",
       }}
     >
-      <div style={{ height: "50px", backgroundColor: "green" }}></div>
+      <div style={{ height: "50px", backgroundColor: "green" }}>
+        <PreviewControls onZoomIn={onZoomIn} onZoomOut={onZoomOut} />
+      </div>
       <SplitPane
         sashRender={sashRender}
         split="horizontal"
@@ -58,7 +68,7 @@ function App() {
             <YAMLEditor value={code} onChange={onChange} />
           </Pane>
 
-          <PDF scale={1} blob={renderQueue.blob} />
+          <PDF scale={scale} blob={renderQueue.blob} />
         </SplitPane>
 
         <Pane minSize={50} maxSize="50%">
