@@ -1,6 +1,6 @@
-import { Resume, Work } from "../types";
+import { Resume, Work } from "../../types";
 import { View, Text } from "@react-pdf/renderer";
-import { RichText } from "./rich-text";
+import { Section } from "../section";
 
 type ItemProps = {
   work: Work;
@@ -9,7 +9,7 @@ type ItemProps = {
 export function WorkItem({ work }: ItemProps) {
   return (
     <View>
-      <RichText>{work.name}</RichText>
+      <Text style={{ fontSize: 14 }}>{work.name}</Text>
     </View>
   );
 }
@@ -22,12 +22,10 @@ export function WorkSection({ resume }: SectionProps) {
   if (!resume.work) return null;
 
   return (
-    <View>
-      <Text>Work</Text>
-
+    <Section title="Work">
       {resume.work.map(
         (work) => work && work.name && <WorkItem key={work.name} work={work} />
       )}
-    </View>
+    </Section>
   );
 }

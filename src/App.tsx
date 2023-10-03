@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { yamlToJSON } from "./parsing";
 
 import { PDF, useRenderQueue } from "./rendering";
@@ -6,29 +6,35 @@ import { YAMLEditor } from "./editing";
 import SplitPane, { Pane, SashContent } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 import { PreviewControls } from "./controls";
+import { render } from "react-dom";
 
 function sashRender(_: number, active: boolean) {
   return <SashContent active={active} type="vscode" />;
 }
 
 function App() {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(`
+work:
+  - name: Test
+  `);
   const renderQueue = useRenderQueue();
   const [sizes, setSizes] = useState<Array<string | number>>(["80%"]);
   const [sizes2, setSizes2] = useState<Array<string | number>>(["40%"]);
   const [scale, setScale] = useState(1);
 
-  async function onChange(yaml: string) {
-    setCode(yaml);
-
-    const { json, errors } = yamlToJSON(yaml);
+  useEffect(() => {
+    const { json, errors } = yamlToJSON(code);
     console.log("t", json, errors);
 
     if (json) {
       renderQueue.push(json);
-    } else if (!yaml) {
+    } else if (!code) {
       renderQueue.clear();
     }
+  }, [code, renderQueue]);
+
+  async function onChange(yaml: string) {
+    setCode(yaml);
   }
 
   function onZoomIn() {

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { pdf } from "@react-pdf/renderer";
 import { ResumeDocument } from "../documents";
 import { Resume } from "../types";
@@ -58,17 +58,13 @@ export function useRenderQueue() {
     }, 500)
   );
 
-  const push = (json: Resume | null) => {
+  const push = useCallback((json: Resume | null) => {
     queueRef.current.push(json);
-  };
+  }, []);
 
-  const clear = () => {
+  const clear = useCallback(() => {
     push(null);
-  };
+  }, [push]);
 
-  return {
-    blob,
-    push,
-    clear,
-  };
+  return useMemo(() => ({ push, clear, blob }), [push, clear, blob]);
 }
