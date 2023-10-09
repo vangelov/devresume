@@ -14,7 +14,7 @@ const TEXT_TYPES: Record<string, boolean | undefined> = {
 
 const STYLE_FOR_TEXT: Record<string, object> = {
   em: { fontStyle: "italic" },
-  strong: { fontWeight: "bold" },
+  strong: { fontWeight: "medium" },
 };
 
 export function RichText({ children }: Props) {

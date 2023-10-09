@@ -3,6 +3,7 @@ import { Page, Document, StyleSheet } from "@react-pdf/renderer";
 import { WorkSection } from "./sections/work-section";
 import { BasicsSection } from "./sections/basics-section";
 import { VStack } from "./stack";
+import { EducationSection, LanguagesSection, SkillsSection } from "./sections";
 
 type Props = {
   resume: Resume;
@@ -10,9 +11,11 @@ type Props = {
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: "#cbd5e1",
+    backgroundColor: "#e2e8f0",
     fontFamily: "Roboto",
-    padding: "24px",
+    padding: 24,
+    fontSize: 12,
+    lineHeight: 1.5,
   },
 });
 
@@ -20,9 +23,12 @@ export function ResumeDocument({ resume }: Props) {
   return (
     <Document>
       <Page style={styles.page} size="A4">
-        <VStack gap={20}>
+        <VStack gap={24}>
           <BasicsSection />
           {resume.work && <WorkSection resume={resume} />}
+          <EducationSection />
+          <LanguagesSection />
+          <SkillsSection />
         </VStack>
       </Page>
     </Document>

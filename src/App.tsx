@@ -6,7 +6,6 @@ import { YAMLEditor } from "./editing";
 import SplitPane, { Pane, SashContent } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 import { PreviewControls } from "./controls";
-import { render } from "react-dom";
 
 function sashRender(_: number, active: boolean) {
   return <SashContent active={active} type="vscode" />;
@@ -16,6 +15,7 @@ function App() {
   const [code, setCode] = useState(`
 work:
   - name: Test
+  - name: Test2
   `);
   const renderQueue = useRenderQueue();
   const [sizes, setSizes] = useState<Array<string | number>>(["80%"]);

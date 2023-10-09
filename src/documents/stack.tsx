@@ -6,18 +6,24 @@ type Props = {
   gap?: number;
   children: ReactNode;
   wrap?: boolean;
+  style?: Style;
 };
 
 function getStyle(
   flexDirection: Style["flexDirection"],
-  { gap, wrap }: Props
+  { gap, wrap, style }: Props
 ): Style {
-  return {
+  const base: Style = {
     display: "flex",
     flexDirection,
     flexWrap: wrap ? "wrap" : undefined,
     gap,
+    alignItems: flexDirection === "row" ? "center" : undefined,
   };
+
+  const final: Style = { ...base, ...style };
+
+  return final;
 }
 
 export function HStack(props: Props) {

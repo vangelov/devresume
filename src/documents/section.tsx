@@ -8,7 +8,17 @@ type Props = {
 export function Section({ title, children }: Props) {
   return (
     <View>
-      {title && <Text style={{ fontSize: 18, color: "#64748b" }}>{title}</Text>}
+      {title && (
+        <Text
+          style={{
+            fontSize: 18,
+            color: "#6b7280",
+            marginBottom: 12,
+          }}
+        >
+          {title}
+        </Text>
+      )}
       {children}
     </View>
   );
