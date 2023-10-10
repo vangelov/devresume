@@ -11,7 +11,7 @@ type GroupItemProps = {
 
 export function GroupItem({ title, description }: GroupItemProps) {
   return (
-    <HStack style={{ fontSize: 14, alignItems: "flex-start" }}>
+    <HStack style={{ alignItems: "flex-start" }}>
       <Text style={{ flex: 1, fontWeight: "medium" }}>{title}</Text>
       <View
         style={{

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { yamlToJSON } from "./parsing";
 
-import { PDF, useRenderQueue } from "./rendering";
+import { PDF, useRender } from "./rendering";
 import { YAMLEditor } from "./editing";
 import SplitPane, { Pane, SashContent } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
@@ -12,12 +12,8 @@ function sashRender(_: number, active: boolean) {
 }
 
 function App() {
-  const [code, setCode] = useState(`
-work:
-  - name: Test
-  - name: Test2
-  `);
-  const renderQueue = useRenderQueue();
+  const [code, setCode] = useState(() => localStorage.getItem("code") || "");
+  const { queue, blob } = useRender();
   const [sizes, setSizes] = useState<Array<string | number>>(["80%"]);
   const [sizes2, setSizes2] = useState<Array<string | number>>(["40%"]);
   const [scale, setScale] = useState(1);
@@ -26,15 +22,13 @@ work:
     const { json, errors } = yamlToJSON(code);
     console.log("t", json, errors);
 
-    if (json) {
-      renderQueue.push(json);
-    } else if (!code) {
-      renderQueue.clear();
-    }
-  }, [code, renderQueue]);
+    if (json) queue.push(json);
+    else if (!code) queue.clear();
+  }, [code, queue]);
 
   async function onChange(yaml: string) {
     setCode(yaml);
+    localStorage.setItem("code", yaml);
   }
 
   function onZoomIn() {
@@ -74,7 +68,7 @@ work:
             <YAMLEditor value={code} onChange={onChange} />
           </Pane>
 
-          <PDF scale={scale} blob={renderQueue.blob} />
+          <PDF scale={scale} blob={blob} />
         </SplitPane>
 
         <Pane minSize={50} maxSize="50%">

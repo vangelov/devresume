@@ -2,7 +2,7 @@ import { Text, Link } from "@react-pdf/renderer";
 import Markdown from "markdown-to-jsx";
 
 type Props = {
-  children: string;
+  children?: string;
 };
 
 const TEXT_TYPES: Record<string, boolean | undefined> = {

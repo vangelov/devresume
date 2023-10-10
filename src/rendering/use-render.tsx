@@ -35,7 +35,7 @@ function createDebouncedQueue<T>(
   return { push };
 }
 
-export function useRenderQueue() {
+export function useRender() {
   const [blob, setBlob] = useState<Blob | null>(null);
 
   const queueRef = useRef(
@@ -55,7 +55,7 @@ export function useRenderQueue() {
           // Do nothing
         }
       }
-    }, 500)
+    }, 2000)
   );
 
   const push = useCallback((json: Resume | null) => {
@@ -66,5 +66,7 @@ export function useRenderQueue() {
     push(null);
   }, [push]);
 
-  return useMemo(() => ({ push, clear, blob }), [push, clear, blob]);
+  const queue = useMemo(() => ({ push, clear }), [push, clear]);
+
+  return { queue, blob };
 }

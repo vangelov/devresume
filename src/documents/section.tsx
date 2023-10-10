@@ -11,7 +11,7 @@ export function Section({ title, children }: Props) {
       {title && (
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 16,
             color: "#6b7280",
             marginBottom: 12,
           }}

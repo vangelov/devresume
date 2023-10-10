@@ -1,5 +1,6 @@
 import { View, Text, Link } from "@react-pdf/renderer";
 import { ReactElement, cloneElement } from "react";
+import { HStack } from "../../stack";
 
 type Props = {
   icon: ReactElement;
@@ -9,27 +10,23 @@ type Props = {
 
 export function InfoItem({ icon, href, value }: Props) {
   return (
-    <View
+    <HStack
       style={{
-        fontSize: 12,
-        display: "flex",
         color: "#6b7280",
-        flexDirection: "row",
-        alignItems: "center",
       }}
     >
       {cloneElement(icon, {
         size: 12,
         color: "gray",
-        style: { marginRight: 4 },
+        style: { marginRight: 2 },
       })}
       {href ? (
-        <Link style={{ color: "#6b7280" }} src={href}>
+        <Link style={{ color: "#6b7280", textDecoration: "none" }} src={href}>
           {value}
         </Link>
       ) : (
         <Text>{value}</Text>
       )}
-    </View>
+    </HStack>
   );
 }
