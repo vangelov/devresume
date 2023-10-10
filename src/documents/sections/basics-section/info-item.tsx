@@ -1,4 +1,4 @@
-import { View, Text, Link } from "@react-pdf/renderer";
+import { Text, Link } from "@react-pdf/renderer";
 import { ReactElement, cloneElement } from "react";
 import { HStack } from "../../stack";
 

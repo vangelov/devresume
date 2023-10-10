@@ -2,7 +2,8 @@ import { Text } from "@react-pdf/renderer";
 import { Section } from "./section";
 import { HStack, VStack } from "./stack";
 import { RichText } from "./rich-text";
-import { ReactElement, ReactNode } from "react";
+import { Fragment, ReactElement, ReactNode } from "react";
+import { formatDate } from "./utils";
 
 type EventHighlightItemProps = {
   children: string;
@@ -20,12 +21,12 @@ export function EventHighlightItem({ children }: EventHighlightItemProps) {
 //
 
 type EventItemProps = {
-  title: string;
+  title?: string;
   titleDetails?: Array<ReactElement>;
   description?: string;
   children?: ReactNode;
-  start?: string;
-  end?: string;
+  startDate?: string;
+  endDate?: string;
 };
 
 export function EventItem({
@@ -33,12 +34,13 @@ export function EventItem({
   children,
   description,
   titleDetails,
-  start,
-  end,
+  startDate,
+  endDate,
 }: EventItemProps) {
+  console.log("s", startDate, endDate);
   return (
     <VStack gap={6}>
-      <VStack gap={8}>
+      <VStack gap={4}>
         <HStack
           style={{
             justifyContent: "space-between",
@@ -53,21 +55,21 @@ export function EventItem({
           >
             <Text style={{ fontWeight: "medium" }}>{title}</Text>
             {titleDetails &&
-              titleDetails.map((titleDetail) => (
-                <>
+              titleDetails.map((titleDetail, index) => (
+                <Fragment key={index}>
                   <Text style={{ color: "#6b7280" }}> • </Text>
                   {titleDetail}
-                </>
+                </Fragment>
               ))}
           </Text>
 
           <Text>
-            {start}
-            {end ? ` - ${end}` : null}
+            {startDate && formatDate(startDate)}
+            {endDate ? ` - ${formatDate(endDate)}` : null}
           </Text>
         </HStack>
 
-        <Text>{description}</Text>
+        {description && <Text>{description}</Text>}
       </VStack>
 
       <VStack gap={6}>{children}</VStack>

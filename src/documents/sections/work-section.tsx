@@ -1,4 +1,4 @@
-import { Resume } from "../../types";
+import { Job } from "../../types";
 import { Link, Text } from "@react-pdf/renderer";
 import {
   EventHighlightItem,
@@ -7,64 +7,56 @@ import {
 } from "../events-section";
 import { ReactElement } from "react";
 
-export type WorkItemProps = {
-  position: string;
-  description?: string;
-  employer: string;
-  location?: string;
-  highlights: Array<string>;
+export type JobItemProps = {
+  job: Job;
 };
 
-export function WorkItem({
-  position,
-  description,
-  employer,
-  location,
-  highlights,
-}: WorkItemProps) {
-  const titleDetails: Array<ReactElement> = [
-    <Link src="fsd" style={{ color: "black", textDecoration: "none" }}>
-      {employer}
-    </Link>,
-  ];
+export function JobItem({ job }: JobItemProps) {
+  const titleDetails: Array<ReactElement> = [];
 
-  if (location) {
-    titleDetails.push(<Text style={{ color: "#6b7280" }}>{location}</Text>);
+  if (job.name) {
+    titleDetails.push(
+      <Link
+        src={job.url || ""}
+        style={{ color: "black", textDecoration: "none" }}
+      >
+        {job.name}
+      </Link>
+    );
+  }
+
+  if (job.location) {
+    titleDetails.push(<Text style={{ color: "#6b7280" }}>{job.location}</Text>);
   }
 
   return (
     <EventItem
-      title={position}
-      description={description}
+      title={job.position}
+      description={job.summary}
       titleDetails={titleDetails}
-      start="Nov 2022"
-      end="Dev 2023"
+      startDate={job.startDate}
+      endDate={job.endDate}
     >
-      {highlights.map((hightlight) => (
-        <EventHighlightItem key={hightlight}>{hightlight}</EventHighlightItem>
-      ))}
+      {job.highlights &&
+        job.highlights.map((hightlight) => (
+          <EventHighlightItem key={hightlight}>{hightlight}</EventHighlightItem>
+        ))}
     </EventItem>
   );
 }
 
+//
+
 type SectionProps = {
-  resume: Resume;
+  work: Array<Job>;
 };
 
-export function WorkSection({ resume }: SectionProps) {
-  if (!resume.work) return null;
-
+export function WorkSection({ work }: SectionProps) {
   return (
     <EventsSection title="Work Experience">
-      <WorkItem
-        position="Senior React Developerd"
-        employer="ViewRay"
-        highlights={[
-          "Created medical data visualizations using TypeScript, React and Redux optimizing the rendering to maintain 60fps during frequent updates.",
-          "Re-designed and re-implemented the patient profile page achieving 30% more information density.",
-          "Enhanced the real-time collaboration features by implementing audio conferencing based on WebRTC.",
-        ]}
-      />
+      {work.map((job, index) => (
+        <JobItem key={index} job={job} />
+      ))}
     </EventsSection>
   );
 }

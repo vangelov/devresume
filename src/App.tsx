@@ -20,7 +20,9 @@ function App() {
 
   useEffect(() => {
     const { json, errors } = yamlToJSON(code);
-    console.log("t", json, errors);
+
+    if (json) console.log("JSON:", json);
+    if (errors) console.log("Errors:", errors);
 
     if (json) queue.push(json);
     else if (!code) queue.clear();

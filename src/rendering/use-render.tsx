@@ -55,7 +55,7 @@ export function useRender() {
           // Do nothing
         }
       }
-    }, 2000)
+    }, 500)
   );
 
   const push = useCallback((json: Resume | null) => {

@@ -10,8 +10,8 @@ export function EducationItem() {
           Sofia University
         </Link>,
       ]}
-      start="Nov 2022"
-      end="Dev 2023"
+      startDate="Nov 2022"
+      endDate="Dev 2023"
     />
   );
 }

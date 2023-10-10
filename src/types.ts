@@ -1,6 +1,12 @@
-export type Work = {
+export type Job = {
   name?: string;
+  location?: string;
+  position?: string;
   url?: string;
+  summary?: string;
+  startDate?: string | number;
+  endDate?: string | number;
+  highlights?: Array<string>;
 };
 
 export type Profile = {
@@ -21,5 +27,5 @@ export type Basics = {
 
 export type Resume = {
   basics?: Basics;
-  work?: Array<Work>;
+  work?: Array<Job>;
 };
