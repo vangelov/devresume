@@ -49,10 +49,26 @@ export type EducationPlace = {
   endDate?: string | number;
 };
 
+export type Award = {
+  title?: string;
+  date?: string | number;
+  awarder?: string;
+  summary?: string;
+};
+
+export type Certificate = {
+  name?: string;
+  date?: string | number;
+  url?: string;
+  issuer?: string;
+};
+
 export type Resume = {
   basics?: Basics;
   work?: Array<Job>;
   skills?: Array<Skill>;
   projects?: Array<Project>;
   education?: Array<EducationPlace>;
+  awards?: Array<Award>;
+  certificates?: Array<Certificate>;
 };

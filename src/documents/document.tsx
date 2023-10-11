@@ -3,6 +3,8 @@ import { Page, Document, StyleSheet } from "@react-pdf/renderer";
 import { BasicsSection } from "./sections/basics-section";
 import { VStack } from "./stack";
 import {
+  AwardsSection,
+  CertificatesSection,
   EducationSection,
   ProjectsSection,
   SkillsSection,
@@ -25,7 +27,8 @@ const styles = StyleSheet.create({
 });
 
 export function ResumeDocument({ resume }: Props) {
-  const { basics, work, skills, projects, education } = resume;
+  const { basics, work, skills, projects, education, awards, certificates } =
+    resume;
 
   return (
     <Document>
@@ -39,6 +42,10 @@ export function ResumeDocument({ resume }: Props) {
           )}
           {education && Array.isArray(education) && (
             <EducationSection education={education} />
+          )}
+          {awards && Array.isArray(awards) && <AwardsSection awards={awards} />}
+          {certificates && Array.isArray(certificates) && (
+            <CertificatesSection certificates={certificates} />
           )}
         </VStack>
       </Page>

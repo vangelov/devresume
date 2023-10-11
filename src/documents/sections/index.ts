@@ -4,3 +4,5 @@ export * from "./education-section";
 export * from "./languages-section";
 export * from "./skills-section";
 export * from "./projects-section";
+export * from "./awards-section";
+export * from "./certificates-section";
