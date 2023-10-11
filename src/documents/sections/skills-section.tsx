@@ -1,5 +1,6 @@
 import { Skill } from "../../types";
 import { GroupItem, GroupedSection } from "../grouped-section";
+import { Theme } from "../theme";
 
 type SkillItemProps = {
   skill: Skill;
@@ -17,11 +18,12 @@ export function SkillItem({ skill }: SkillItemProps) {
 
 type Props = {
   skills: Array<Skill>;
+  theme: Theme;
 };
 
-export function SkillsSection({ skills }: Props) {
+export function SkillsSection({ skills, theme }: Props) {
   return (
-    <GroupedSection title="Skills">
+    <GroupedSection theme={theme} title="Skills">
       {skills.map((skill, index) => (
         <SkillItem key={index} skill={skill} />
       ))}

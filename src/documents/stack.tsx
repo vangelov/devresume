@@ -1,47 +1,43 @@
 import { ReactNode } from "react";
 import { View } from "@react-pdf/renderer";
-import { Style } from "@react-pdf/types";
+import { Style, ViewProps } from "@react-pdf/types";
 
-type Props = {
+type Props = ViewProps & {
   gap?: number;
   children: ReactNode;
-  wrap?: boolean;
+  flexWrap?: Style["flexWrap"];
   style?: Style;
-  break?: boolean;
-  wrap2?: boolean;
 };
 
-function getStyle(
-  flexDirection: Style["flexDirection"],
-  { gap, wrap, style }: Props
-): Style {
-  const base: Style = {
+export function HStack({ gap, children, flexWrap, style, ...rest }: Props) {
+  const updatedStyle: Style = {
     display: "flex",
-    flexDirection,
-    flexWrap: wrap ? "wrap" : undefined,
+    flexDirection: "row",
     gap,
-    alignItems: flexDirection === "row" ? "center" : undefined,
+    flexWrap,
+    alignItems: "center",
+    ...style,
   };
 
-  const final: Style = { ...base, ...style };
-
-  return final;
-}
-
-export function HStack(props: Props) {
-  const style = getStyle("row", props);
   return (
-    <View break={props.break} wrap={props.wrap2} style={style}>
-      {props.children}
+    <View {...rest} style={updatedStyle}>
+      {children}
     </View>
   );
 }
 
-export function VStack(props: Props) {
-  const style = getStyle("column", props);
+export function VStack({ gap, children, flexWrap, style, ...rest }: Props) {
+  const updatedStyle: Style = {
+    display: "flex",
+    flexDirection: "column",
+    gap,
+    flexWrap,
+    ...style,
+  };
+
   return (
-    <View wrap={props.wrap2} style={style}>
-      {props.children}
+    <View style={updatedStyle} {...rest}>
+      {children}
     </View>
   );
 }

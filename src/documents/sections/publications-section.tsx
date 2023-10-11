@@ -2,12 +2,14 @@ import { Publication } from "../../types";
 import { Text } from "@react-pdf/renderer";
 import { EventItem, EventsSection } from "../events-section";
 import { ReactElement } from "react";
+import { Theme } from "../theme";
 
 export type PublicationItemProps = {
   publication: Publication;
+  theme: Theme;
 };
 
-export function PublicationItem({ publication }: PublicationItemProps) {
+export function PublicationItem({ publication, theme }: PublicationItemProps) {
   const titleDetails: Array<ReactElement> = [];
   const { name, url, publisher, releaseDate, summary } = publication;
 
@@ -20,6 +22,7 @@ export function PublicationItem({ publication }: PublicationItemProps) {
       url={url}
       titleDetails={titleDetails}
       startDate={releaseDate}
+      theme={theme}
     />
   );
 }
@@ -28,13 +31,14 @@ export function PublicationItem({ publication }: PublicationItemProps) {
 
 type SectionProps = {
   publications: Array<Publication>;
+  theme: Theme;
 };
 
-export function PublicationsSection({ publications }: SectionProps) {
+export function PublicationsSection({ publications, theme }: SectionProps) {
   return (
-    <EventsSection title="Publications">
+    <EventsSection theme={theme} title="Publications">
       {publications.map((publication, index) => (
-        <PublicationItem key={index} publication={publication} />
+        <PublicationItem key={index} theme={theme} publication={publication} />
       ))}
     </EventsSection>
   );

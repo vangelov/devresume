@@ -4,6 +4,7 @@ import { HStack, VStack } from "./stack";
 import { RichText } from "./rich-text";
 import { Fragment, ReactElement, ReactNode } from "react";
 import { formatDate } from "./utils";
+import { Theme } from "./theme";
 
 type EventHighlightItemProps = {
   children: string;
@@ -11,7 +12,7 @@ type EventHighlightItemProps = {
 
 export function EventHighlightItem({ children }: EventHighlightItemProps) {
   return (
-    <HStack wrap2={false} style={{ alignItems: "flex-start" }} gap={3}>
+    <HStack wrap={false} style={{ alignItems: "flex-start" }} gap={3}>
       <Text>•</Text>
       <RichText>{children}</RichText>
     </HStack>
@@ -28,6 +29,7 @@ type EventItemProps = {
   children?: ReactNode;
   startDate?: string | number;
   endDate?: string | number;
+  theme: Theme;
 };
 
 export function EventItem({
@@ -38,10 +40,11 @@ export function EventItem({
   titleDetails,
   startDate,
   endDate,
+  theme,
 }: EventItemProps) {
   return (
-    <VStack wrap2={false} gap={6}>
-      <VStack gap={4}>
+    <VStack wrap={false} gap={theme.space[2]}>
+      <VStack gap={theme.space[1]}>
         <HStack
           style={{
             justifyContent: "space-between",
@@ -50,7 +53,7 @@ export function EventItem({
         >
           <Text
             style={{
-              marginRight: 12,
+              marginRight: theme.space[5],
               flex: 1,
             }}
           >
@@ -59,7 +62,7 @@ export function EventItem({
                 src={url}
                 style={{
                   fontWeight: "medium",
-                  color: "black",
+                  color: theme.color.text,
                   textDecoration: "none",
                 }}
               >
@@ -72,13 +75,13 @@ export function EventItem({
             {titleDetails &&
               titleDetails.map((titleDetail, index) => (
                 <Fragment key={index}>
-                  <Text style={{ color: "#6b7280" }}> • </Text>
+                  <Text style={{ color: theme.color.lightText }}> • </Text>
                   {titleDetail}
                 </Fragment>
               ))}
           </Text>
 
-          <Text>
+          <Text style={{ color: theme.color.lightText }}>
             {startDate && formatDate(startDate)}
             {endDate ? ` - ${formatDate(endDate)}` : null}
           </Text>
@@ -87,7 +90,7 @@ export function EventItem({
         {description && <RichText>{description}</RichText>}
       </VStack>
 
-      <VStack gap={6}>{children}</VStack>
+      <VStack gap={theme.space[2]}>{children}</VStack>
     </VStack>
   );
 }
@@ -97,12 +100,13 @@ export function EventItem({
 type EventSectionProps = {
   title: string;
   children: ReactNode;
+  theme: Theme;
 };
 
-export function EventsSection({ title, children }: EventSectionProps) {
+export function EventsSection({ title, children, theme }: EventSectionProps) {
   return (
-    <Section title={title}>
-      <VStack gap={22}>{children}</VStack>
+    <Section theme={theme} title={title}>
+      <VStack gap={theme.space[9]}>{children}</VStack>
     </Section>
   );
 }

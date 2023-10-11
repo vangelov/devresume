@@ -4,18 +4,20 @@ import { HStack, VStack } from "../../stack";
 import { Basics } from "../../../types";
 import { RichText } from "../../rich-text";
 import { Contacts } from "./contacts";
+import { Theme } from "../../theme";
 
 export type Props = {
   basics: Basics;
+  theme: Theme;
 };
 
-export function BasicsSection({ basics }: Props) {
+export function BasicsSection({ basics, theme }: Props) {
   return (
-    <Section>
-      <VStack gap={12}>
+    <Section theme={theme}>
+      <VStack gap={theme.space[5]}>
         <HStack>
           {basics.name && (
-            <Text style={{ fontSize: 20, fontWeight: "medium" }}>
+            <Text style={{ fontSize: theme.fontSize[2], fontWeight: "medium" }}>
               {basics.name}
             </Text>
           )}
@@ -23,8 +25,8 @@ export function BasicsSection({ basics }: Props) {
           {basics.label && (
             <Text
               style={{
-                color: "#6b7280",
-                fontSize: 16,
+                color: theme.color.lightText,
+                fontSize: theme.fontSize[1],
               }}
             >
               {" "}
@@ -34,7 +36,7 @@ export function BasicsSection({ basics }: Props) {
         </HStack>
 
         <HStack style={{ alignItems: "flex-start" }}>
-          <Contacts style={{ flex: 0.6 }} basics={basics} />
+          <Contacts theme={theme} style={{ flex: 0.6 }} basics={basics} />
           <View style={{ flex: 1 }}>
             {basics.summary && <RichText>{basics.summary}</RichText>}
           </View>

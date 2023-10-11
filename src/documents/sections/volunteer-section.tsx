@@ -6,42 +6,42 @@ import {
   EventsSection,
 } from "../events-section";
 import { ReactElement } from "react";
+import { Theme } from "../theme";
 
 export type VolunteeringItemProps = {
   volunteering: Voluteering;
+  theme: Theme;
 };
 
-export function VolunteeringItem({ volunteering }: VolunteeringItemProps) {
+export function VolunteeringItem({
+  volunteering,
+  theme,
+}: VolunteeringItemProps) {
   const titleDetails: Array<ReactElement> = [];
-  const {
-    organization,
-    url,
-    startDate,
-    endDate,
-    summary,
-    position,
-    highlights,
-  } = volunteering;
 
-  if (organization) {
+  if (volunteering.organization) {
     titleDetails.push(
-      <Link src={url || ""} style={{ color: "black", textDecoration: "none" }}>
-        {organization}
+      <Link
+        src={volunteering.url || ""}
+        style={{ color: theme.color.text, textDecoration: "none" }}
+      >
+        {volunteering.organization}
       </Link>
     );
   }
 
   return (
     <EventItem
-      title={position}
-      description={summary}
+      title={volunteering.position}
+      description={volunteering.summary}
       titleDetails={titleDetails}
-      startDate={startDate}
-      endDate={endDate}
+      startDate={volunteering.startDate}
+      endDate={volunteering.endDate}
+      theme={theme}
     >
-      {highlights &&
-        Array.isArray(highlights) &&
-        highlights.map((highlight) => (
+      {volunteering.highlights &&
+        Array.isArray(volunteering.highlights) &&
+        volunteering.highlights.map((highlight) => (
           <EventHighlightItem key={highlight}>{highlight}</EventHighlightItem>
         ))}
     </EventItem>
@@ -52,13 +52,18 @@ export function VolunteeringItem({ volunteering }: VolunteeringItemProps) {
 
 type SectionProps = {
   volunteer: Array<Voluteering>;
+  theme: Theme;
 };
 
-export function VolunterrSection({ volunteer }: SectionProps) {
+export function VolunterrSection({ volunteer, theme }: SectionProps) {
   return (
-    <EventsSection title="Volunteer">
+    <EventsSection theme={theme} title="Volunteer">
       {volunteer.map((volunteering, index) => (
-        <VolunteeringItem key={index} volunteering={volunteering} />
+        <VolunteeringItem
+          key={index}
+          theme={theme}
+          volunteering={volunteering}
+        />
       ))}
     </EventsSection>
   );

@@ -3,6 +3,7 @@ import { Section } from "./section";
 import { HStack, VStack } from "./stack";
 import { RichText } from "./rich-text";
 import { ReactNode } from "react";
+import { Theme } from "./theme";
 
 type GroupItemProps = {
   title?: string;
@@ -35,12 +36,13 @@ export function GroupItem({ title, description }: GroupItemProps) {
 type EventSectionProps = {
   title: string;
   children: ReactNode;
+  theme: Theme;
 };
 
-export function GroupedSection({ title, children }: EventSectionProps) {
+export function GroupedSection({ title, children, theme }: EventSectionProps) {
   return (
-    <Section title={title}>
-      <VStack gap={16}>{children}</VStack>
+    <Section theme={theme} title={title}>
+      <VStack gap={theme.space[7]}>{children}</VStack>
     </Section>
   );
 }

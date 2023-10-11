@@ -81,6 +81,10 @@ export type Voluteering = {
   endDate?: string | number;
 };
 
+export type Meta = {
+  accentColor?: string;
+};
+
 export type Resume = {
   basics?: Basics;
   work?: Array<Job>;
@@ -91,4 +95,5 @@ export type Resume = {
   certificates?: Array<Certificate>;
   publications?: Array<Publication>;
   volunteer?: Array<Voluteering>;
+  meta?: Meta;
 };

@@ -6,13 +6,16 @@ import {
   EventsSection,
 } from "../events-section";
 import { ReactElement } from "react";
+import { Theme } from "../theme";
 
 export type EducationPlaceItemProps = {
   educationPlace: EducationPlace;
+  theme: Theme;
 };
 
 export function EducationPlaceItem({
   educationPlace,
+  theme,
 }: EducationPlaceItemProps) {
   const titleDetails: Array<ReactElement> = [];
 
@@ -20,26 +23,25 @@ export function EducationPlaceItem({
     titleDetails.push(
       <Link
         src={educationPlace.url || ""}
-        style={{ color: "black", textDecoration: "none" }}
+        style={{ color: theme.color.text, textDecoration: "none" }}
       >
         {educationPlace.institution}
       </Link>
     );
   }
 
-  const { courses, score, area, startDate, endDate } = educationPlace;
-
   return (
     <EventItem
-      title={area}
-      description={score}
+      title={educationPlace.area}
+      description={educationPlace.score}
       titleDetails={titleDetails}
-      startDate={startDate}
-      endDate={endDate}
+      startDate={educationPlace.startDate}
+      endDate={educationPlace.endDate}
+      theme={theme}
     >
-      {courses &&
-        Array.isArray(courses) &&
-        courses.map((course) => (
+      {educationPlace.courses &&
+        Array.isArray(educationPlace.courses) &&
+        educationPlace.courses.map((course) => (
           <EventHighlightItem key={course}>{course}</EventHighlightItem>
         ))}
     </EventItem>
@@ -50,13 +52,18 @@ export function EducationPlaceItem({
 
 type SectionProps = {
   education: Array<EducationPlace>;
+  theme: Theme;
 };
 
-export function EducationSection({ education }: SectionProps) {
+export function EducationSection({ education, theme }: SectionProps) {
   return (
-    <EventsSection title="Education">
+    <EventsSection theme={theme} title="Education">
       {education.map((educationPlace, index) => (
-        <EducationPlaceItem key={index} educationPlace={educationPlace} />
+        <EducationPlaceItem
+          key={index}
+          theme={theme}
+          educationPlace={educationPlace}
+        />
       ))}
     </EventsSection>
   );

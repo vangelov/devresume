@@ -6,19 +6,21 @@ import {
   EventsSection,
 } from "../events-section";
 import { ReactElement } from "react";
+import { Theme } from "../theme";
 
 export type JobItemProps = {
   job: Job;
+  theme: Theme;
 };
 
-export function JobItem({ job }: JobItemProps) {
+export function JobItem({ job, theme }: JobItemProps) {
   const titleDetails: Array<ReactElement> = [];
 
   if (job.name) {
     titleDetails.push(
       <Link
         src={job.url || ""}
-        style={{ color: "black", textDecoration: "none" }}
+        style={{ color: theme.color.text, textDecoration: "none" }}
       >
         {job.name}
       </Link>
@@ -26,10 +28,10 @@ export function JobItem({ job }: JobItemProps) {
   }
 
   if (job.location) {
-    titleDetails.push(<Text style={{ color: "#6b7280" }}>{job.location}</Text>);
+    titleDetails.push(
+      <Text style={{ color: theme.color.lightText }}>{job.location}</Text>
+    );
   }
-
-  const { highlights } = job;
 
   return (
     <EventItem
@@ -38,10 +40,11 @@ export function JobItem({ job }: JobItemProps) {
       titleDetails={titleDetails}
       startDate={job.startDate}
       endDate={job.endDate}
+      theme={theme}
     >
-      {highlights &&
-        Array.isArray(highlights) &&
-        highlights.map((hightlight) => (
+      {job.highlights &&
+        Array.isArray(job.highlights) &&
+        job.highlights.map((hightlight) => (
           <EventHighlightItem key={hightlight}>{hightlight}</EventHighlightItem>
         ))}
     </EventItem>
@@ -52,13 +55,14 @@ export function JobItem({ job }: JobItemProps) {
 
 type SectionProps = {
   work: Array<Job>;
+  theme: Theme;
 };
 
-export function WorkSection({ work }: SectionProps) {
+export function WorkSection({ work, theme }: SectionProps) {
   return (
-    <EventsSection title="Work Experience">
+    <EventsSection theme={theme} title="Work Experience">
       {work.map((job, index) => (
-        <JobItem key={index} job={job} />
+        <JobItem key={index} theme={theme} job={job} />
       ))}
     </EventsSection>
   );

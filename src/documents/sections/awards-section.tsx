@@ -2,23 +2,27 @@ import { Award } from "../../types";
 import { Text } from "@react-pdf/renderer";
 import { EventItem, EventsSection } from "../events-section";
 import { ReactElement } from "react";
+import { Theme } from "../theme";
 
 export type AwardItemProps = {
   award: Award;
+  theme: Theme;
 };
 
-export function AwardItem({ award }: AwardItemProps) {
+export function AwardItem({ award, theme }: AwardItemProps) {
   const titleDetails: Array<ReactElement> = [];
-  const { awarder, title, summary, date } = award;
 
-  if (awarder) titleDetails.push(<Text>{awarder}</Text>);
+  if (award.awarder) {
+    titleDetails.push(<Text>{award.awarder}</Text>);
+  }
 
   return (
     <EventItem
-      title={title}
-      description={summary}
+      theme={theme}
+      title={award.title}
+      description={award.summary}
       titleDetails={titleDetails}
-      startDate={date}
+      startDate={award.date}
     />
   );
 }
@@ -27,13 +31,14 @@ export function AwardItem({ award }: AwardItemProps) {
 
 type SectionProps = {
   awards: Array<Award>;
+  theme: Theme;
 };
 
-export function AwardsSection({ awards }: SectionProps) {
+export function AwardsSection({ awards, theme }: SectionProps) {
   return (
-    <EventsSection title="Awards">
+    <EventsSection theme={theme} title="Awards">
       {awards.map((award, index) => (
-        <AwardItem key={index} award={award} />
+        <AwardItem key={index} theme={theme} award={award} />
       ))}
     </EventsSection>
   );
