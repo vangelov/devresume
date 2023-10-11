@@ -1,4 +1,4 @@
-import { Text } from "@react-pdf/renderer";
+import { Text, Link } from "@react-pdf/renderer";
 import { Section } from "./section";
 import { HStack, VStack } from "./stack";
 import { RichText } from "./rich-text";
@@ -11,7 +11,7 @@ type EventHighlightItemProps = {
 
 export function EventHighlightItem({ children }: EventHighlightItemProps) {
   return (
-    <HStack style={{ alignItems: "flex-start" }} gap={3}>
+    <HStack wrap2={false} style={{ alignItems: "flex-start" }} gap={3}>
       <Text>•</Text>
       <RichText>{children}</RichText>
     </HStack>
@@ -22,24 +22,25 @@ export function EventHighlightItem({ children }: EventHighlightItemProps) {
 
 type EventItemProps = {
   title?: string;
+  url?: string;
   titleDetails?: Array<ReactElement>;
   description?: string;
   children?: ReactNode;
-  startDate?: string;
-  endDate?: string;
+  startDate?: string | number;
+  endDate?: string | number;
 };
 
 export function EventItem({
   title,
+  url,
   children,
   description,
   titleDetails,
   startDate,
   endDate,
 }: EventItemProps) {
-  console.log("s", startDate, endDate);
   return (
-    <VStack gap={6}>
+    <VStack wrap2={false} gap={6}>
       <VStack gap={4}>
         <HStack
           style={{
@@ -53,7 +54,21 @@ export function EventItem({
               flex: 1,
             }}
           >
-            <Text style={{ fontWeight: "medium" }}>{title}</Text>
+            {url ? (
+              <Link
+                src={url}
+                style={{
+                  fontWeight: "medium",
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                {title}
+              </Link>
+            ) : (
+              <Text style={{ fontWeight: "medium" }}>{title}</Text>
+            )}
+
             {titleDetails &&
               titleDetails.map((titleDetail, index) => (
                 <Fragment key={index}>
@@ -69,7 +84,7 @@ export function EventItem({
           </Text>
         </HStack>
 
-        {description && <Text>{description}</Text>}
+        {description && <RichText>{description}</RichText>}
       </VStack>
 
       <VStack gap={6}>{children}</VStack>

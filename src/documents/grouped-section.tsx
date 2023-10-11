@@ -5,23 +5,27 @@ import { RichText } from "./rich-text";
 import { ReactNode } from "react";
 
 type GroupItemProps = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 };
 
 export function GroupItem({ title, description }: GroupItemProps) {
   return (
     <HStack style={{ alignItems: "flex-start" }}>
-      <Text style={{ flex: 1, fontWeight: "medium" }}>{title}</Text>
-      <View
-        style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "flex-end",
-        }}
-      >
-        <RichText>{description}</RichText>
-      </View>
+      {title && (
+        <Text style={{ flex: 0.6, fontWeight: "medium" }}>{title}</Text>
+      )}
+
+      {description && (
+        <View
+          style={{
+            flex: 1,
+            display: "flex",
+          }}
+        >
+          <RichText>{description}</RichText>
+        </View>
+      )}
     </HStack>
   );
 }
@@ -36,7 +40,7 @@ type EventSectionProps = {
 export function GroupedSection({ title, children }: EventSectionProps) {
   return (
     <Section title={title}>
-      <VStack gap={22}>{children}</VStack>
+      <VStack gap={16}>{children}</VStack>
     </Section>
   );
 }

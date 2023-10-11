@@ -41,6 +41,13 @@ function App() {
     setScale(scale - 0.2);
   }
 
+  function download() {
+    if (blob) {
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+    }
+  }
+
   return (
     <div
       style={{
@@ -52,7 +59,11 @@ function App() {
       }}
     >
       <div style={{ height: "50px", backgroundColor: "green" }}>
-        <PreviewControls onZoomIn={onZoomIn} onZoomOut={onZoomOut} />
+        <PreviewControls
+          onZoomIn={onZoomIn}
+          onZoomOut={onZoomOut}
+          onDownload={download}
+        />
       </div>
       <SplitPane
         sashRender={sashRender}

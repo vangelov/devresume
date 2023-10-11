@@ -16,7 +16,7 @@ export function InfoItem({ icon, href, value }: Props) {
       }}
     >
       {cloneElement(icon, {
-        size: 12,
+        size: 10,
         color: "gray",
         style: { marginRight: 2 },
       })}

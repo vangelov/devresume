@@ -7,6 +7,8 @@ type Props = {
   children: ReactNode;
   wrap?: boolean;
   style?: Style;
+  break?: boolean;
+  wrap2?: boolean;
 };
 
 function getStyle(
@@ -28,10 +30,18 @@ function getStyle(
 
 export function HStack(props: Props) {
   const style = getStyle("row", props);
-  return <View style={style}>{props.children}</View>;
+  return (
+    <View break={props.break} wrap={props.wrap2} style={style}>
+      {props.children}
+    </View>
+  );
 }
 
 export function VStack(props: Props) {
   const style = getStyle("column", props);
-  return <View style={style}>{props.children}</View>;
+  return (
+    <View wrap={props.wrap2} style={style}>
+      {props.children}
+    </View>
+  );
 }

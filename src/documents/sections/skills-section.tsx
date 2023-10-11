@@ -1,16 +1,30 @@
+import { Skill } from "../../types";
 import { GroupItem, GroupedSection } from "../grouped-section";
 
-export function SkillsSection() {
+type SkillItemProps = {
+  skill: Skill;
+};
+
+export function SkillItem({ skill }: SkillItemProps) {
+  const { keywords } = skill;
+  const description =
+    keywords && Array.isArray(keywords) ? keywords.join(", ") : "";
+
+  return <GroupItem title={skill.name} description={description} />;
+}
+
+//
+
+type Props = {
+  skills: Array<Skill>;
+};
+
+export function SkillsSection({ skills }: Props) {
   return (
     <GroupedSection title="Skills">
-      <GroupItem
-        title="Languages and technologies"
-        description="JavaScript, TypeScript, SQL, Git, GraphQL, REST, WebSocket, Electron, WebRTC, HTML, CSS, Node.js"
-      />
-      <GroupItem
-        title="Frameworks"
-        description="React, Redux, React Query, React Testing Library, React Hook Form, React Router, Playwright, Cypress"
-      />
+      {skills.map((skill, index) => (
+        <SkillItem key={index} skill={skill} />
+      ))}
     </GroupedSection>
   );
 }

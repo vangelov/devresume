@@ -1,25 +1,63 @@
+import { EducationPlace } from "../../types";
 import { Link } from "@react-pdf/renderer";
-import { EventItem, EventsSection } from "../events-section";
+import {
+  EventHighlightItem,
+  EventItem,
+  EventsSection,
+} from "../events-section";
+import { ReactElement } from "react";
 
-export function EducationItem() {
+export type EducationPlaceItemProps = {
+  educationPlace: EducationPlace;
+};
+
+export function EducationPlaceItem({
+  educationPlace,
+}: EducationPlaceItemProps) {
+  const titleDetails: Array<ReactElement> = [];
+
+  if (educationPlace.institution) {
+    titleDetails.push(
+      <Link
+        src={educationPlace.url || ""}
+        style={{ color: "black", textDecoration: "none" }}
+      >
+        {educationPlace.institution}
+      </Link>
+    );
+  }
+
+  const { courses, score, area, startDate, endDate } = educationPlace;
+
   return (
     <EventItem
-      title="Bachelor of Software Engineering"
-      titleDetails={[
-        <Link src="fsd" style={{ color: "black" }}>
-          Sofia University
-        </Link>,
-      ]}
-      startDate="Nov 2022"
-      endDate="Dev 2023"
-    />
+      title={area}
+      description={score}
+      titleDetails={titleDetails}
+      startDate={startDate}
+      endDate={endDate}
+    >
+      {courses &&
+        Array.isArray(courses) &&
+        courses.map((course) => (
+          <EventHighlightItem key={course}>{course}</EventHighlightItem>
+        ))}
+    </EventItem>
   );
 }
 
-export function EducationSection() {
+//
+
+type SectionProps = {
+  education: Array<EducationPlace>;
+};
+
+export function EducationSection({ education }: SectionProps) {
   return (
     <EventsSection title="Education">
-      <EducationItem />
+      {education.map((educationPlace, index) => (
+        <EducationPlaceItem key={index} educationPlace={educationPlace} />
+      ))}
     </EventsSection>
   );
 }

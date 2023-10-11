@@ -29,6 +29,8 @@ export function JobItem({ job }: JobItemProps) {
     titleDetails.push(<Text style={{ color: "#6b7280" }}>{job.location}</Text>);
   }
 
+  const { highlights } = job;
+
   return (
     <EventItem
       title={job.position}
@@ -37,8 +39,9 @@ export function JobItem({ job }: JobItemProps) {
       startDate={job.startDate}
       endDate={job.endDate}
     >
-      {job.highlights &&
-        job.highlights.map((hightlight) => (
+      {highlights &&
+        Array.isArray(highlights) &&
+        highlights.map((hightlight) => (
           <EventHighlightItem key={hightlight}>{hightlight}</EventHighlightItem>
         ))}
     </EventItem>
