@@ -63,6 +63,24 @@ export type Certificate = {
   issuer?: string;
 };
 
+export type Publication = {
+  name?: string;
+  publisher?: string;
+  releaseDate?: string | number;
+  url?: string;
+  summary?: string;
+};
+
+export type Voluteering = {
+  organization?: string;
+  url?: string;
+  position?: string;
+  summary?: string;
+  highlights?: Array<string>;
+  startDate?: string | number;
+  endDate?: string | number;
+};
+
 export type Resume = {
   basics?: Basics;
   work?: Array<Job>;
@@ -71,4 +89,6 @@ export type Resume = {
   education?: Array<EducationPlace>;
   awards?: Array<Award>;
   certificates?: Array<Certificate>;
+  publications?: Array<Publication>;
+  volunteer?: Array<Voluteering>;
 };

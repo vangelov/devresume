@@ -6,3 +6,5 @@ export * from "./skills-section";
 export * from "./projects-section";
 export * from "./awards-section";
 export * from "./certificates-section";
+export * from "./publications-section";
+export * from "./volunteer-section";

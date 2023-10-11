@@ -7,7 +7,9 @@ import {
   CertificatesSection,
   EducationSection,
   ProjectsSection,
+  PublicationsSection,
   SkillsSection,
+  VolunterrSection,
   WorkSection,
 } from "./sections";
 
@@ -27,8 +29,17 @@ const styles = StyleSheet.create({
 });
 
 export function ResumeDocument({ resume }: Props) {
-  const { basics, work, skills, projects, education, awards, certificates } =
-    resume;
+  const {
+    basics,
+    work,
+    skills,
+    projects,
+    education,
+    awards,
+    certificates,
+    publications,
+    volunteer,
+  } = resume;
 
   return (
     <Document>
@@ -46,6 +57,12 @@ export function ResumeDocument({ resume }: Props) {
           {awards && Array.isArray(awards) && <AwardsSection awards={awards} />}
           {certificates && Array.isArray(certificates) && (
             <CertificatesSection certificates={certificates} />
+          )}
+          {publications && Array.isArray(publications) && (
+            <PublicationsSection publications={publications} />
+          )}
+          {volunteer && Array.isArray(volunteer) && (
+            <VolunterrSection volunteer={volunteer} />
           )}
         </VStack>
       </Page>
