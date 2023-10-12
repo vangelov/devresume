@@ -1,5 +1,5 @@
 import { Resume } from "../types";
-import { Page, Document, StyleSheet, View } from "@react-pdf/renderer";
+import { Page, Document, StyleSheet } from "@react-pdf/renderer";
 import { BasicsSection } from "./sections/basics-section";
 import { VStack } from "./stack";
 import {
@@ -13,6 +13,7 @@ import {
   WorkSection,
 } from "./sections";
 import { createTheme } from "./theme";
+import { Bar } from "./bar";
 
 type Props = {
   resume: Resume;
@@ -49,18 +50,8 @@ export function ResumeDocument({ resume }: Props) {
   return (
     <Document>
       <Page style={styles.page} size="A4">
-        <View
-          fixed
-          style={{
-            backgroundColor: theme.color.accent,
-            height: 10,
-            position: "absolute",
-            left: 0,
-            right: 0,
-            top: 0,
-          }}
-        />
-        <VStack gap={24}>
+        <Bar theme={theme} />
+        <VStack gap={theme.space[10]}>
           {basics && <BasicsSection theme={theme} basics={basics} />}
           {skills && Array.isArray(skills) && (
             <SkillsSection theme={theme} skills={skills} />

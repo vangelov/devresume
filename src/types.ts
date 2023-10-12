@@ -83,6 +83,7 @@ export type Voluteering = {
 
 export type Meta = {
   accentColor?: string;
+  baseFontSize?: number;
 };
 
 export type Resume = {
