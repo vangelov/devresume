@@ -1,8 +1,9 @@
 import { Text, Link } from "@react-pdf/renderer";
 import Markdown from "markdown-to-jsx";
+import { ReactNode } from "react";
 
 type Props = {
-  children: string;
+  children?: ReactNode;
 };
 
 const TEXT_TYPES: Record<string, boolean | undefined> = {
@@ -14,7 +15,7 @@ const TEXT_TYPES: Record<string, boolean | undefined> = {
 
 const STYLE_FOR_TEXT: Record<string, object> = {
   em: { fontStyle: "italic" },
-  strong: { fontWeight: "bold" },
+  strong: { fontWeight: "medium" },
 };
 
 export function RichText({ children }: Props) {
@@ -35,7 +36,11 @@ export function RichText({ children }: Props) {
             );
           } else if (type === "a" && "href" in props) {
             return (
-              <Link key={props.key} src={props.href as string}>
+              <Link
+                key={props.key}
+                src={props.href as string}
+                style={{ color: "black" }}
+              >
                 {children}
               </Link>
             );

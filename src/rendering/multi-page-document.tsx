@@ -48,7 +48,7 @@ export function MultiPageDocument({
           />
         </div>,
 
-        <div key="spacer" style={{ height: "1rem" }} />
+        <div key={`spacer-${i}`} style={{ height: "1rem" }} />
       );
     }
 
