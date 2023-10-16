@@ -2,6 +2,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import * as yamlMode from "@codemirror/legacy-modes/mode/yaml";
 import { StreamLanguage } from "@codemirror/language";
 import { vscodeDarkInit } from "@uiw/codemirror-theme-vscode";
+import { memo } from "react";
 
 const yaml = StreamLanguage.define(yamlMode.yaml);
 
@@ -10,7 +11,7 @@ type Props = {
   onChange: (value: string) => void;
 };
 
-export function YAMLEditor({ value, onChange }: Props) {
+function UnmemoizedYAMLEditor({ value, onChange }: Props) {
   return (
     <CodeMirror
       style={{
@@ -28,3 +29,5 @@ export function YAMLEditor({ value, onChange }: Props) {
     />
   );
 }
+
+export const YAMLEditor = memo(UnmemoizedYAMLEditor);

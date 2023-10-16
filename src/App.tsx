@@ -1,24 +1,34 @@
-import { useEffect, useState } from "react";
+import { CSSProperties, useCallback, useState } from "react";
 import { yamlToJSON } from "./parsing";
-
-import { PDF, useRender } from "./rendering";
+import { PDF, useRender, useScale } from "./rendering";
 import { YAMLEditor } from "./editing";
-import SplitPane, { Pane, SashContent } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
-import { PreviewControls } from "./controls";
+import {
+  ControlsLayout,
+  FileControls,
+  PreviewControls,
+  TitleControls,
+} from "./controls";
+import { PanesLayout } from "./panes-layout";
+import { useDebouncedEffect } from "./utils/use-debounced-effect";
 
-function sashRender(_: number, active: boolean) {
-  return <SashContent active={active} type="vscode" />;
-}
+const styles: Record<string, CSSProperties> = {
+  root: {
+    display: "flex",
+    position: "relative",
+    width: "100vw",
+    height: "100vh",
+    flexDirection: "column",
+  },
+};
 
 function App() {
   const [code, setCode] = useState(() => localStorage.getItem("code") || "");
   const { queue, blob } = useRender();
-  const [sizes, setSizes] = useState<Array<string | number>>(["80%"]);
-  const [sizes2, setSizes2] = useState<Array<string | number>>(["40%"]);
-  const [scale, setScale] = useState(1);
+  const { zoomIn, zoomOut, scale } = useScale({ minScale: 0.5, maxScale: 2 });
+  const [title, setTitle] = useState("Untitled");
 
-  useEffect(() => {
+  const onCodeUpdate = useCallback(() => {
     const { json, errors } = yamlToJSON(code);
 
     if (json) console.log("JSON:", json);
@@ -28,62 +38,42 @@ function App() {
     else if (!code) queue.clear();
   }, [code, queue]);
 
-  async function onChange(yaml: string) {
+  useDebouncedEffect(onCodeUpdate);
+
+  const onChange = useCallback(async (yaml: string) => {
     setCode(yaml);
     localStorage.setItem("code", yaml);
-  }
+  }, []);
 
-  function onZoomIn() {
-    setScale(scale + 0.1);
-  }
-
-  function onZoomOut() {
-    setScale(scale - 0.1);
-  }
-
-  function download() {
+  function onDownload() {
     if (blob) {
       const url = URL.createObjectURL(blob);
       window.open(url, "_blank");
     }
   }
 
+  const onTitleChange = useCallback((value: string) => {
+    setTitle(value);
+  }, []);
+
   return (
-    <div
-      style={{
-        display: "flex",
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        flexDirection: "column",
-      }}
-    >
-      <PreviewControls
-        onZoomIn={onZoomIn}
-        onZoomOut={onZoomOut}
-        onDownload={download}
+    <div style={styles.root}>
+      <ControlsLayout
+        left={<FileControls onOpen={() => {}} onSave={() => {}} />}
+        center={<TitleControls title={title} onChange={onTitleChange} />}
+        right={
+          <PreviewControls
+            onDownload={onDownload}
+            onZoomIn={zoomIn}
+            onZoomOut={zoomOut}
+          />
+        }
       />
 
-      <SplitPane
-        sashRender={sashRender}
-        split="horizontal"
-        sizes={sizes}
-        onChange={setSizes}
-      >
-        <SplitPane
-          sashRender={sashRender}
-          split="vertical"
-          sizes={sizes2}
-          onChange={setSizes2}
-        >
-          <Pane minSize={200} maxSize="50%">
-            <YAMLEditor value={code} onChange={onChange} />
-          </Pane>
-
-          <PDF scale={scale} blob={blob} />
-        </SplitPane>
-
-        <Pane minSize={50} maxSize="50%">
+      <PanesLayout
+        left={<YAMLEditor value={code} onChange={onChange} />}
+        right={<PDF scale={scale} blob={blob} />}
+        bottom={
           <div
             style={{
               backgroundColor: "#1e1e1e",
@@ -92,8 +82,8 @@ function App() {
               borderTop: "1px solid #2A2A2A",
             }}
           ></div>
-        </Pane>
-      </SplitPane>
+        }
+      />
     </div>
   );
 }

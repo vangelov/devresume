@@ -24,7 +24,7 @@ body {
   background: #1e1e1e;
 }
 
-*[contenteditable="true"]:focus {
+input:focus {
   outline: #2b5dd6;
   outline-style: solid;
   outline-width: 2px;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import { DoubleBuffered } from "./double-buffered";
 import useResizeObserver from "@react-hook/resize-observer";
 
@@ -7,7 +7,7 @@ type Props = {
   scale: number;
 };
 
-export function PDF({ blob, scale }: Props) {
+function UnmemoizedPDF({ blob, scale }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const widthRef = useRef(0);
 
@@ -52,3 +52,5 @@ export function PDF({ blob, scale }: Props) {
     </div>
   );
 }
+
+export const PDF = memo(UnmemoizedPDF);
