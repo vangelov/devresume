@@ -45,7 +45,7 @@ export function PDF({ blob, scale }: Props) {
         overflowY: "auto",
         width: "100%",
         height: "100%",
-        backgroundColor: "#374151",
+        backgroundColor: "#363636",
       }}
     >
       <DoubleBuffered blob={blob} scale={scale} />

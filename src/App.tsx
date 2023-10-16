@@ -34,11 +34,11 @@ function App() {
   }
 
   function onZoomIn() {
-    setScale(scale + 0.2);
+    setScale(scale + 0.1);
   }
 
   function onZoomOut() {
-    setScale(scale - 0.2);
+    setScale(scale - 0.1);
   }
 
   function download() {
@@ -58,13 +58,12 @@ function App() {
         flexDirection: "column",
       }}
     >
-      <div style={{ height: "50px", backgroundColor: "green" }}>
-        <PreviewControls
-          onZoomIn={onZoomIn}
-          onZoomOut={onZoomOut}
-          onDownload={download}
-        />
-      </div>
+      <PreviewControls
+        onZoomIn={onZoomIn}
+        onZoomOut={onZoomOut}
+        onDownload={download}
+      />
+
       <SplitPane
         sashRender={sashRender}
         split="horizontal"

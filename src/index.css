@@ -1,28 +1,53 @@
 body {
   margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .cm-editor {
   height: 100%;
-  --test: red;
 }
 
-/* width */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
+  background: #555;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #888;
 }
 ::-webkit-scrollbar-corner {
   background: #1e1e1e;
+}
+
+*[contenteditable="true"]:focus {
+  outline: #2b5dd6;
+  outline-style: solid;
+  outline-width: 2px;
+}
+
+button {
+  border: none;
+  padding: 6px 22px 6px;
+  background-color: #363636;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #505050;
+}
+
+button.primary {
+  border: none;
+  background-color: #2b5dd6;
+}
+
+button.primary:hover {
+  background-color: #3b82f6;
 }

@@ -13,7 +13,12 @@ type Props = {
 export function YAMLEditor({ value, onChange }: Props) {
   return (
     <CodeMirror
-      style={{ fontSize: "14px", overflowY: "hidden", height: "100%" }}
+      style={{
+        fontSize: "14px",
+        overflowY: "hidden",
+        height: "100%",
+        borderRight: "1px solid #2A2A2A",
+      }}
       value={value}
       onChange={onChange}
       theme={vscodeDarkInit({
