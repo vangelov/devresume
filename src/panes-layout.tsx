@@ -18,32 +18,29 @@ export function PanesLayout({ left, bottom, right }: Props) {
   >(["80%"]);
 
   const [verticalSizes, setVerticalSizes] = useState<Array<string | number>>([
-    "40%",
+    "50%",
   ]);
 
   return (
     <SplitPane
       sashRender={sashRender}
-      split="horizontal"
-      sizes={horizontalSizes}
-      onChange={setHorizontalSizes}
+      split="vertical"
+      sizes={verticalSizes}
+      onChange={setVerticalSizes}
     >
-      <SplitPane
-        sashRender={sashRender}
-        split="vertical"
-        sizes={verticalSizes}
-        onChange={setVerticalSizes}
-      >
-        <Pane minSize={200} maxSize="50%">
+      <Pane minSize="30%" maxSize="50%">
+        <SplitPane
+          sashRender={sashRender}
+          split="horizontal"
+          sizes={horizontalSizes}
+          onChange={setHorizontalSizes}
+        >
           {left}
-        </Pane>
-
-        {right}
-      </SplitPane>
-
-      <Pane minSize={50} maxSize="50%">
-        {bottom}
+          <Pane minSize="5%">{bottom}</Pane>
+        </SplitPane>
       </Pane>
+
+      {right}
     </SplitPane>
   );
 }

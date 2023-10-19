@@ -15,10 +15,9 @@ const styles: Record<string, CSSProperties> = {
     alignItems: "center",
   },
   input: {
-    whiteSpace: "nowrap",
+    width: "90%",
     color: "white",
     fontWeight: 600,
-    minWidth: "50px",
     backgroundColor: "transparent",
     border: "none",
     textAlign: "center",

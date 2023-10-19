@@ -24,8 +24,8 @@ export function PreviewControls({
 }: Props) {
   return (
     <div style={{ ...styles.root, ...style }}>
-      <button onClick={onZoomIn}>+</button>
       <button onClick={onZoomOut}>-</button>
+      <button onClick={onZoomIn}>+</button>
       <button className="primary" onClick={onDownload}>
         Download
       </button>

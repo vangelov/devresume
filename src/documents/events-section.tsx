@@ -90,7 +90,7 @@ export function EventItem({
         {description && <RichText>{description}</RichText>}
       </VStack>
 
-      <VStack gap={theme.space[2]}>{children}</VStack>
+      {children && <VStack gap={theme.space[2]}>{children}</VStack>}
     </VStack>
   );
 }
@@ -106,7 +106,7 @@ type EventSectionProps = {
 export function EventsSection({ title, children, theme }: EventSectionProps) {
   return (
     <Section theme={theme} title={title}>
-      <VStack gap={theme.space[9]}>{children}</VStack>
+      <VStack gap={theme.space[8]}>{children}</VStack>
     </Section>
   );
 }

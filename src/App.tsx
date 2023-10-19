@@ -1,7 +1,7 @@
 import { CSSProperties, useCallback, useState } from "react";
 import { yamlToJSON } from "./parsing";
 import { PDF, useRender, useScale } from "./rendering";
-import { YAMLEditor } from "./editing";
+import { Schema, YAMLEditor } from "./editing";
 import "split-pane-react/esm/themes/default.css";
 import {
   ControlsLayout,
@@ -73,16 +73,7 @@ function App() {
       <PanesLayout
         left={<YAMLEditor value={code} onChange={onChange} />}
         right={<PDF scale={scale} blob={blob} />}
-        bottom={
-          <div
-            style={{
-              backgroundColor: "#1e1e1e",
-              width: "100%",
-              height: "100%",
-              borderTop: "1px solid #2A2A2A",
-            }}
-          ></div>
-        }
+        bottom={<Schema />}
       />
     </div>
   );
