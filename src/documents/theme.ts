@@ -1,5 +1,3 @@
-import { Meta } from "../types";
-
 export type Theme = {
   lineHeight: number;
   space: Array<number>;
@@ -11,8 +9,7 @@ export type Theme = {
   };
 };
 
-export function createTheme(meta: Meta = {}) {
-  const { accentColor = "#2B5DD6", baseFontSize = 10 } = meta;
+export function createTheme(accentColor = "#2B5DD6", baseFontSize = 10) {
   const clampedBaseFontSize = Math.min(Math.max(10, baseFontSize), 16);
 
   const result: Theme = {

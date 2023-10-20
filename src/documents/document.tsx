@@ -12,12 +12,27 @@ import {
   VolunterrSection,
   WorkSection,
 } from "./sections";
-import { createTheme } from "./theme";
+import { Theme, createTheme } from "./theme";
 import { Bar } from "./bar";
+import { useMemo } from "react";
 
 type Props = {
   resume: Resume;
 };
+
+function createStyles(theme: Theme) {
+  return StyleSheet.create({
+    page: {
+      backgroundColor: "white",
+      fontFamily: "Roboto",
+      paddingVertical: theme.space[10],
+      paddingHorizontal: theme.space[12],
+      fontSize: theme.fontSize[0],
+      lineHeight: theme.lineHeight,
+      color: theme.color.text,
+    },
+  });
+}
 
 export function ResumeDocument({ resume }: Props) {
   const {
@@ -33,19 +48,14 @@ export function ResumeDocument({ resume }: Props) {
     meta,
   } = resume;
 
-  const theme = createTheme(meta);
+  const accentColor = meta && meta.accentColor;
+  const baseFontSize = meta && meta.baseFontSize;
 
-  const styles = StyleSheet.create({
-    page: {
-      backgroundColor: "white",
-      fontFamily: "Roboto",
-      paddingVertical: theme.space[10],
-      paddingHorizontal: theme.space[12],
-      fontSize: theme.fontSize[0],
-      lineHeight: theme.lineHeight,
-      color: theme.color.text,
-    },
-  });
+  const theme = useMemo(
+    () => createTheme(accentColor, baseFontSize),
+    [accentColor, baseFontSize]
+  );
+  const styles = createStyles(theme);
 
   return (
     <Document>
