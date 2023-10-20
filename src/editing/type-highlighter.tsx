@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { Fragment, ReactElement } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const IDENT = "  ";
@@ -6,16 +6,17 @@ const IDENT = "  ";
 export function createTypeHighlighter() {
   const result: ReactElement[] = [];
   let space = "";
+  let lastKey = 0;
 
   function pushType(name: string) {
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         <span className="Schema-Keyword">type</span>{" "}
         <span className="Schema-Type">{name}</span>{" "}
         <span className="Schema-Plan">=</span>{" "}
         <span className="Schema-Plain">{"{"}</span>
         <br />
-      </>
+      </Fragment>
     );
 
     space += IDENT;
@@ -23,14 +24,14 @@ export function createTypeHighlighter() {
 
   function pushObject(name: string) {
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         <span className="Schema-Field">
           {space}
           {name}
         </span>
         : <span className="Schema-Plain">{"{"}</span>
         <br />
-      </>
+      </Fragment>
     );
 
     space += IDENT;
@@ -38,7 +39,7 @@ export function createTypeHighlighter() {
 
   function pushArrayOfObjects(name: string) {
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         <span className="Schema-Field">
           {space}
           {name}
@@ -47,7 +48,7 @@ export function createTypeHighlighter() {
         <span className="Schema-Plain">&lt;</span>
         <span className="Schema-Plain">{"{"}</span>
         <br />
-      </>
+      </Fragment>
     );
 
     space += IDENT;
@@ -57,14 +58,14 @@ export function createTypeHighlighter() {
     space = space.slice(0, space.length - IDENT.length);
 
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         <span className="Schema-Plain">
           {space}
           {"}"}
         </span>
         <span className="Schema-Plain">;</span>
         <br />
-      </>
+      </Fragment>
     );
   }
 
@@ -94,44 +95,44 @@ export function createTypeHighlighter() {
     { markdown = false }: { markdown?: boolean } = {}
   ) {
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         {renderFieldName(name)}
         ?: <span className="Schema-Type">string</span>
         {renderFieldEnd({ markdown })}
-      </>
+      </Fragment>
     );
   }
 
   function addNumberField(name: string) {
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         {renderFieldName(name)}
         ?: <span className="Schema-Type">number</span>
         {renderFieldEnd()}
-      </>
+      </Fragment>
     );
   }
 
   function addDateField(name: string) {
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         {renderFieldName(name)}
         ?: <span className="Schema-Type">string | number</span>
         {renderFieldEnd()}
-      </>
+      </Fragment>
     );
   }
 
   function addEnumField(name: string, values: Array<string>) {
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         {renderFieldName(name)}
         ?:{" "}
         <span className="pl-s">
           {values.map((value) => `"${value}"`).join(" | ")}
         </span>
         {renderFieldEnd()}
-      </>
+      </Fragment>
     );
   }
 
@@ -140,14 +141,14 @@ export function createTypeHighlighter() {
     { markdown = false }: { markdown?: boolean } = {}
   ) {
     result.push(
-      <>
+      <Fragment key={lastKey++}>
         {renderFieldName(name)}
         ?: <span className="Schema-Type">Array</span>
         <span className="Schema-Plain">&lt;</span>
         <span className="Schema-Type">string</span>
         <span className="Schema-Plain">&gt;</span>
         {renderFieldEnd({ markdown })}
-      </>
+      </Fragment>
     );
   }
 
