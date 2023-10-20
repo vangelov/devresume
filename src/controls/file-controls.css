@@ -1,5 +1,5 @@
 .FileControls {
-  gap: 8px;
+  gap: var(--space-3);
   display: flex;
-  padding: 1rem;
+  padding: var(--space-6);
 }

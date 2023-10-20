@@ -20,6 +20,7 @@ export function App() {
   const [title, setTitle] = useState("Untitled");
 
   const onCodeUpdate = useCallback(() => {
+    localStorage.setItem("code", code);
     const { json, errors } = yamlToJSON(code);
 
     if (json) console.log("JSON:", json);
@@ -33,7 +34,6 @@ export function App() {
 
   const onChange = useCallback(async (yaml: string) => {
     setCode(yaml);
-    localStorage.setItem("code", yaml);
   }, []);
 
   function onDownload() {

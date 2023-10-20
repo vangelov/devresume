@@ -1,5 +1,5 @@
 .ControlsLayout {
   display: flex;
-  background-color: #1e1e1e;
-  border-bottom: 1px solid #2a2a2a;
+  background-color: var(--color-gray-100);
+  border-bottom: 1px solid var(--color-gray-400);
 }

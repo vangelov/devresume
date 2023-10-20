@@ -13,5 +13,11 @@
   background-color: transparent;
   border: none;
   text-align: center;
-  font-size: 20px;
+  font-size: var(--font-size-3);
+}
+
+.TitleControls-Input:focus {
+  outline: var(--color-blue-100);
+  outline-style: solid;
+  outline-width: var(--space-1);
 }

@@ -1,6 +1,6 @@
 .YAMLEditor {
-  font-size: 14px;
+  font-size: var(--font-size-1);
   overflow-y: hidden;
   height: 100%;
-  border-right: "1px solid #2A2A2A";
+  border-right: 1px solid var(--color-gray-400);
 }

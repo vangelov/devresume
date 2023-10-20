@@ -30,7 +30,11 @@ export function BasicsSection({ basics, theme }: Props) {
       <VStack gap={theme.space[5]}>
         <HStack>
           {basics.name && <Text style={styles.name}>{basics.name}</Text>}
-          {basics.label && <Text style={styles.label}> • {basics.label}</Text>}
+          {basics.label && (
+            <Text style={styles.label}>
+              <Text> </Text>• {basics.label}
+            </Text>
+          )}
         </HStack>
 
         <HStack style={{ alignItems: "flex-start" }}>

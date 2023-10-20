@@ -1,6 +1,6 @@
 .PreviewControls {
   display: flex;
-  gap: 8px;
+  gap: var(--space-3);
   justify-content: flex-end;
-  padding: 1rem;
+  padding: var(--space-6);
 }
