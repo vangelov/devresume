@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import "./file-controls.css";
 
 type Props = {
   onSave: () => void;
@@ -6,13 +7,9 @@ type Props = {
   style?: CSSProperties;
 };
 
-const styles: Record<string, CSSProperties> = {
-  root: { gap: 8, display: "flex", padding: "1rem" },
-};
-
 export function FileControls({ onSave, onOpen, style }: Props) {
   return (
-    <div style={{ ...styles.root, ...style }}>
+    <div className="FileControls" style={style}>
       <button onClick={() => {}}>&#8505;</button>
 
       <button onClick={onSave}>Save</button>

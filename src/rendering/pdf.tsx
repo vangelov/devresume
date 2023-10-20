@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useRef } from "react";
 import { DoubleBuffered } from "./double-buffered";
 import useResizeObserver from "@react-hook/resize-observer";
+import "./pdf.css";
 
 type Props = {
   blob: Blob | null;
@@ -39,15 +40,7 @@ function UnmemoizedPDF({ blob, scale }: Props) {
   });
 
   return (
-    <div
-      ref={ref}
-      style={{
-        overflowY: "auto",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#363636",
-      }}
-    >
+    <div ref={ref} className="PDF">
       <DoubleBuffered blob={blob} scale={scale} />
     </div>
   );

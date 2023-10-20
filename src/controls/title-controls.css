@@ -1,0 +1,17 @@
+.TitleControls {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  align-items: center;
+}
+
+.TitleControls-Input {
+  width: 90%;
+  color: white;
+  font-weight: 600;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  font-size: 20px;
+}

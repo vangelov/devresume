@@ -10,9 +10,10 @@ export function createTypeHighlighter() {
   function pushType(name: string) {
     result.push(
       <>
-        <span className="pl-k">type</span>{" "}
-        <span className="pl-smi">{name}</span> <span className="pl-c1">=</span>{" "}
-        <span className="pl-kos">{"{"}</span>
+        <span className="Schema-Keyword">type</span>{" "}
+        <span className="Schema-Type">{name}</span>{" "}
+        <span className="Schema-Plan">=</span>{" "}
+        <span className="Schema-Plain">{"{"}</span>
         <br />
       </>
     );
@@ -23,11 +24,11 @@ export function createTypeHighlighter() {
   function pushObject(name: string) {
     result.push(
       <>
-        <span className="pl-c1">
+        <span className="Schema-Field">
           {space}
           {name}
         </span>
-        : <span className="pl-kos">{"{"}</span>
+        : <span className="Schema-Plain">{"{"}</span>
         <br />
       </>
     );
@@ -38,13 +39,13 @@ export function createTypeHighlighter() {
   function pushArrayOfObjects(name: string) {
     result.push(
       <>
-        <span className="pl-c1">
+        <span className="Schema-Field">
           {space}
           {name}
         </span>
-        ?: <span className="pl-smi">Array</span>
-        <span className="pl-kos">&lt;</span>
-        <span className="pl-kos">{"{"}</span>
+        ?: <span className="Schema-Type">Array</span>
+        <span className="Schema-Plain">&lt;</span>
+        <span className="Schema-Plain">{"{"}</span>
         <br />
       </>
     );
@@ -57,11 +58,11 @@ export function createTypeHighlighter() {
 
     result.push(
       <>
-        <span className="pl-kos">
+        <span className="Schema-Plain">
           {space}
           {"}"}
         </span>
-        <span className="pl-kos">;</span>
+        <span className="Schema-Plain">;</span>
         <br />
       </>
     );
@@ -69,7 +70,7 @@ export function createTypeHighlighter() {
 
   function renderFieldName(name: string) {
     return (
-      <span className="pl-c1">
+      <span className="Schema-Field">
         {space}
         {name}
       </span>
@@ -79,8 +80,10 @@ export function createTypeHighlighter() {
   function renderFieldEnd({ markdown = false }: { markdown?: boolean } = {}) {
     return (
       <>
-        <span className="pl-kos">;</span>
-        {markdown && <span className="c"> // supports Markdown</span>}
+        <span className="Schema-Plain">;</span>
+        {markdown && (
+          <span className="Schema-Comment"> // supports Markdown</span>
+        )}
         <br />
       </>
     );
@@ -93,7 +96,7 @@ export function createTypeHighlighter() {
     result.push(
       <>
         {renderFieldName(name)}
-        ?: <span className="pl-smi">string</span>
+        ?: <span className="Schema-Type">string</span>
         {renderFieldEnd({ markdown })}
       </>
     );
@@ -103,7 +106,7 @@ export function createTypeHighlighter() {
     result.push(
       <>
         {renderFieldName(name)}
-        ?: <span className="pl-smi">number</span>
+        ?: <span className="Schema-Type">number</span>
         {renderFieldEnd()}
       </>
     );
@@ -113,7 +116,7 @@ export function createTypeHighlighter() {
     result.push(
       <>
         {renderFieldName(name)}
-        ?: <span className="pl-smi">string | number</span>
+        ?: <span className="Schema-Type">string | number</span>
         {renderFieldEnd()}
       </>
     );
@@ -139,10 +142,10 @@ export function createTypeHighlighter() {
     result.push(
       <>
         {renderFieldName(name)}
-        ?: <span className="pl-smi">Array</span>
-        <span className="pl-kos">&lt;</span>
-        <span className="pl-smi">string</span>
-        <span className="pl-kos">&gt;</span>
+        ?: <span className="Schema-Type">Array</span>
+        <span className="Schema-Plain">&lt;</span>
+        <span className="Schema-Type">string</span>
+        <span className="Schema-Plain">&gt;</span>
         {renderFieldEnd({ markdown })}
       </>
     );

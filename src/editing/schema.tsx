@@ -98,19 +98,7 @@ export function Schema() {
   const highlightedElements = useMemo(createHighlightedElements, []);
 
   return (
-    <div
-      style={{
-        backgroundColor: "#1e1e1e",
-        borderTop: "1px solid #2A2A2A",
-        width: "100%",
-        height: "100%",
-        whiteSpace: "pre",
-        color: "white",
-
-        padding: "1rem",
-        overflow: "scroll",
-      }}
-    >
+    <div className="Schema">
       <pre
         style={{
           margin: 0,
@@ -119,17 +107,18 @@ export function Schema() {
           fontSize: 14,
         }}
       >
-        <span className="c">
+        <span className="Schema-Comment">
           // Use this as a guide. It shows the supported fields from the JSON
-          resume schema <br />
-          // expressed in TypeScript so they're easier to read. <br />
-          // -----
+          <br />
+          // resume schema expressed in TypeScript so they're easier to read.{" "}
+          <br />
+          // -------------------------------------------------------------------
           <br />
           // Where noted you can use the following Markdown subset: <br />
           // *bold*, **italics**, [label](link). <br />
-          // -----
+          // -------------------------------------------------------------------
           <br />
-          // Dates are formateed as YYYY or "YYYY-MM".
+          // Dates are formated as YYYY or "YYYY-MM".
           <br />
         </span>
         <br />

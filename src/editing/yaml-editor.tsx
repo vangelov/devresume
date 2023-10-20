@@ -3,6 +3,7 @@ import * as yamlMode from "@codemirror/legacy-modes/mode/yaml";
 import { StreamLanguage } from "@codemirror/language";
 import { vscodeDarkInit } from "@uiw/codemirror-theme-vscode";
 import { memo } from "react";
+import "./yaml-editor.css";
 
 const yaml = StreamLanguage.define(yamlMode.yaml);
 
@@ -14,12 +15,7 @@ type Props = {
 function UnmemoizedYAMLEditor({ value, onChange }: Props) {
   return (
     <CodeMirror
-      style={{
-        fontSize: "14px",
-        overflowY: "hidden",
-        height: "100%",
-        borderRight: "1px solid #2A2A2A",
-      }}
+      className="YAMLEditor"
       value={value}
       onChange={onChange}
       theme={vscodeDarkInit({

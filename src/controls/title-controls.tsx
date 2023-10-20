@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import "./title-controls.css";
 
 type Props = {
   title: string;
@@ -6,30 +7,11 @@ type Props = {
   style?: CSSProperties;
 };
 
-const styles: Record<string, CSSProperties> = {
-  root: {
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    overflowX: "hidden",
-    alignItems: "center",
-  },
-  input: {
-    width: "90%",
-    color: "white",
-    fontWeight: 600,
-    backgroundColor: "transparent",
-    border: "none",
-    textAlign: "center",
-    fontSize: 20,
-  },
-};
-
 export function TitleControls({ title, onChange, style }: Props) {
   return (
-    <div style={{ ...styles.root, ...style }}>
+    <div className="TitleControls" style={style}>
       <input
-        style={styles.input}
+        className="TitleControls-Input"
         value={title}
         onChange={(event) => onChange(event.target.value)}
         onBlur={(event) => {

@@ -1,4 +1,4 @@
-import { CSSProperties, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { yamlToJSON } from "./parsing";
 import { PDF, useRender, useScale } from "./rendering";
 import { Schema, YAMLEditor } from "./editing";
@@ -11,18 +11,9 @@ import {
 } from "./controls";
 import { PanesLayout } from "./panes-layout";
 import { useDebouncedEffect } from "./utils/use-debounced-effect";
+import "./app.css";
 
-const styles: Record<string, CSSProperties> = {
-  root: {
-    display: "flex",
-    position: "relative",
-    width: "100vw",
-    height: "100vh",
-    flexDirection: "column",
-  },
-};
-
-function App() {
+export function App() {
   const [code, setCode] = useState(() => localStorage.getItem("code") || "");
   const { queue, blob } = useRender();
   const { zoomIn, zoomOut, scale } = useScale({ minScale: 0.5, maxScale: 2 });
@@ -57,7 +48,7 @@ function App() {
   }, []);
 
   return (
-    <div style={styles.root}>
+    <div className="App">
       <ControlsLayout
         left={<FileControls onOpen={() => {}} onSave={() => {}} />}
         center={<TitleControls title={title} onChange={onTitleChange} />}
@@ -78,5 +69,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
