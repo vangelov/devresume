@@ -5,11 +5,15 @@ import { selectFile } from "./select-file";
 
 type Props = {
   title: string;
-  contents: string;
+  yaml: string;
   onFileOpened: (fileTitle: string, fileContents: string) => void;
 };
 
-export function useYAMLFile({ title, contents, onFileOpened }: Props) {
+export function useYAMLPersistence({
+  title,
+  yaml: contents,
+  onFileOpened,
+}: Props) {
   const save = useCallback(() => {
     downloadFile(title + ".yaml", new Blob([contents], { type: "text/yaml" }));
   }, [title, contents]);

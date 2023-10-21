@@ -1,1 +1,1 @@
-export * from "./yaml-to-json";
+export * from "./use-yaml-parsing";

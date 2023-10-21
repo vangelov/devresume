@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { yamlToJSON } from "./parsing";
 import { PDF, useRender, useScale } from "./rendering";
 import { Schema, YAMLEditor } from "./editing";
 import "split-pane-react/esm/themes/default.css";
@@ -10,44 +9,40 @@ import {
   TitleControls,
 } from "./controls";
 import { PanesLayout } from "./panes-layout";
-import { useDebouncedEffect } from "./utils/use-debounced-effect";
 import "./app.css";
-import { useYAMLFile } from "./files";
-import { downloadFile } from "./files";
+import { useYAMLPersistence, downloadFile } from "./persistence";
+import { useYAMLParsing } from "./parsing";
 
 export function App() {
-  const [code, setCode] = useState(() => localStorage.getItem("code") || "");
   const { queue, blob } = useRender();
   const { zoomIn, zoomOut, scale } = useScale({ minScale: 0.5, maxScale: 2 });
   const [title, setTitle] = useState("Untitled");
 
+  // Parsing
+  const onYAMLParsed = useCallback(
+    (yaml: string, json: object | undefined) => {
+      if (json) queue.push(json);
+      else if (!yaml) queue.clear();
+    },
+    [queue]
+  );
+  const { setYAML, yaml } = useYAMLParsing({ onYAMLParsed });
+
+  // Persistence
   const onFileOpened = useCallback(
     (fileTitle: string, fileContents: string) => {
       setTitle(fileTitle);
-      setCode(fileContents);
+      setYAML(fileContents);
     },
-    []
+    [setYAML]
   );
+  const { save, open } = useYAMLPersistence({
+    title,
+    yaml: yaml,
+    onFileOpened,
+  });
 
-  const yamlFile = useYAMLFile({ title, contents: code, onFileOpened });
-
-  const onCodeUpdate = useCallback(() => {
-    localStorage.setItem("code", code);
-    const { json, errors } = yamlToJSON(code);
-
-    if (json) console.log("JSON:", json);
-    if (errors) console.log("Errors:", errors);
-
-    if (json) queue.push(json);
-    else if (!code) queue.clear();
-  }, [code, queue]);
-
-  useDebouncedEffect(onCodeUpdate);
-
-  const onChange = useCallback(async (yaml: string) => {
-    setCode(yaml);
-  }, []);
-
+  // Export
   const onDownload = useCallback(() => {
     if (blob) {
       downloadFile(title, blob);
@@ -57,7 +52,7 @@ export function App() {
   return (
     <div className="App">
       <ControlsLayout
-        left={<FileControls onOpen={yamlFile.open} onSave={yamlFile.save} />}
+        left={<FileControls onOpen={open} onSave={save} />}
         center={<TitleControls title={title} onChange={setTitle} />}
         right={
           <PreviewControls
@@ -69,7 +64,7 @@ export function App() {
       />
 
       <PanesLayout
-        left={<YAMLEditor value={code} onChange={onChange} />}
+        left={<YAMLEditor value={yaml} onChange={setYAML} />}
         right={<PDF scale={scale} blob={blob} />}
         bottom={<Schema />}
       />
