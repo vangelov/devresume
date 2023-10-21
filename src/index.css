@@ -62,6 +62,9 @@ input {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gray-600);
 }
+::-webkit-scrollbar-thumb:active {
+  background: var(--color-white);
+}
 ::-webkit-scrollbar-corner {
   background: var(--color-gray-100);
 }
