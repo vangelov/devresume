@@ -5,7 +5,7 @@ type Props = {
   style?: CSSProperties;
 };
 
-export function PlusIcon({ size, style }: Props) {
+export function ZoomInIcon({ size, style }: Props) {
   return (
     <svg
       width={size}
@@ -17,10 +17,12 @@ export function PlusIcon({ size, style }: Props) {
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      className="feather feather-plus"
+      className="feather feather-zoom-in"
     >
-      <line x1="12" y1="5" x2="12" y2="19"></line>
-      <line x1="5" y1="12" x2="19" y2="12"></line>
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      <line x1="11" y1="8" x2="11" y2="14"></line>
+      <line x1="8" y1="11" x2="14" y2="11"></line>
     </svg>
   );
 }

@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import "./preview-controls.css";
-import { MinusIcon, PDFIcon, PlusIcon } from "../icons";
+import { ZoomOutIcon, PDFIcon, ZoomInIcon } from "../icons";
 
 type Props = {
   onZoomIn: () => void;
@@ -18,11 +18,11 @@ export function PreviewControls({
   return (
     <div className="PreviewControls" style={style}>
       <button title="Zoom out" onClick={onZoomOut}>
-        <MinusIcon size={14} />
+        <ZoomOutIcon size={16} />
       </button>
 
       <button title="Zoom in" onClick={onZoomIn}>
-        <PlusIcon size={14} />
+        <ZoomInIcon size={16} />
       </button>
 
       <button className="primary" onClick={onDownload}>

@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import "./file-controls.css";
-import { DownloadIcon, FolderIcon } from "../icons";
+import { DownloadIcon, FolderIcon, InfoIcon } from "../icons";
 
 type Props = {
   onSave: () => void;
@@ -11,8 +11,8 @@ type Props = {
 export function FileControls({ onSave, onOpen, style }: Props) {
   return (
     <div className="FileControls" style={style}>
-      <button title="Open Github" onClick={() => {}}>
-        ?
+      <button title="About" onClick={() => {}}>
+        <InfoIcon size={16} />
       </button>
 
       <button onClick={onSave}>

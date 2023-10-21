@@ -5,7 +5,7 @@ type Props = {
   style?: CSSProperties;
 };
 
-export function MinusIcon({ size, style }: Props) {
+export function InfoIcon({ size, style }: Props) {
   return (
     <svg
       width={size}
@@ -17,9 +17,11 @@ export function MinusIcon({ size, style }: Props) {
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      className="feather feather-minus"
+      className="feather feather-info"
     >
-      <line x1="5" y1="12" x2="19" y2="12"></line>
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="16" x2="12" y2="12"></line>
+      <line x1="12" y1="8" x2="12.01" y2="8"></line>
     </svg>
   );
 }
