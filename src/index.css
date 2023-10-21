@@ -20,6 +20,7 @@ body {
   --color-green-100: #4ec9b0;
 
   --color-white: #ffffff;
+  --color-black: #000000;
 
   --space-1: 0.125rem;
   --space-2: 0.375rem;
@@ -68,6 +69,7 @@ button {
   color: var(--color-white);
   cursor: pointer;
   font-weight: 600;
+  font-size: var(--font-size-1);
 }
 
 button:hover {
@@ -80,4 +82,10 @@ button.primary {
 
 button.primary:hover {
   background-color: var(--color-blue-200);
+}
+
+button:active,
+button.primary:active {
+  color: var(--color-black);
+  background-color: var(--color-white);
 }

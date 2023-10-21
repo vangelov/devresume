@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import "./file-controls.css";
+import { DownloadIcon, FolderIcon } from "../icons";
 
 type Props = {
   onSave: () => void;
@@ -10,10 +11,18 @@ type Props = {
 export function FileControls({ onSave, onOpen, style }: Props) {
   return (
     <div className="FileControls" style={style}>
-      <button onClick={() => {}}>&#8505;</button>
+      <button title="Open Github" onClick={() => {}}>
+        ?
+      </button>
 
-      <button onClick={onSave}>Save</button>
-      <button onClick={onOpen}>Open</button>
+      <button onClick={onSave}>
+        <DownloadIcon size={14} style={{ marginRight: "0.5rem" }} />
+        Save
+      </button>
+      <button onClick={onOpen}>
+        <FolderIcon size={14} style={{ marginRight: "0.5rem" }} />
+        Open
+      </button>
     </div>
   );
 }
