@@ -1,6 +1,7 @@
 import { InfoItem } from "./info-item";
 import {
   GitHubIcon,
+  GlobeIcon,
   LinkedInIcon,
   LocationIcon,
   MailIcon,
@@ -41,6 +42,9 @@ export function Contacts({ basics, style, theme }: Props) {
       )}
       {basics.email && (
         <InfoItem theme={theme} icon={<MailIcon />} value={basics.email} />
+      )}
+      {basics.url && (
+        <InfoItem theme={theme} icon={<GlobeIcon />} value={basics.url} />
       )}
       {basics.location && basics.location.address && (
         <InfoItem
