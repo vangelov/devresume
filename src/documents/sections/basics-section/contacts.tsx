@@ -46,9 +46,6 @@ export function Contacts({ basics, style, theme }: Props) {
       {basics.url && (
         <InfoItem theme={theme} icon={<GlobeIcon />} value={basics.url} />
       )}
-      {basics.location && (
-        <LocationInfoItem theme={theme} location={basics.location} />
-      )}
       {githubProfile && githubProfile.url && (
         <InfoItem
           theme={theme}
@@ -64,6 +61,9 @@ export function Contacts({ basics, style, theme }: Props) {
           value={linkedinProfile.url}
           href={linkedinProfile.url}
         />
+      )}
+      {basics.location && (
+        <LocationInfoItem theme={theme} location={basics.location} />
       )}
     </VStack>
   );

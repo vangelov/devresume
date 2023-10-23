@@ -1,5 +1,5 @@
 import { Location } from "../../../types";
-import { GlobeIcon } from "../../icons";
+import { GlobeIcon, MapPinIcon } from "../../icons";
 import { Theme } from "../../theme";
 import { InfoItem } from "./info-item";
 
@@ -17,5 +17,5 @@ export function LocationInfoItem({ location, theme }: Props) {
 
   const value = parts.join(", ");
 
-  return <InfoItem theme={theme} icon={<GlobeIcon />} value={value} />;
+  return <InfoItem theme={theme} icon={<MapPinIcon />} value={value} />;
 }
