@@ -12,7 +12,6 @@ const STORAGE_KEY = "yaml";
 export function useYAMLParsing({ onYAMLParsed }: Props) {
   const [yaml, setYAML] = useState(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    console.log("s", stored, typeof stored);
 
     if (!stored && stored !== "") {
       return SAMPLE_YAML;

@@ -14,7 +14,7 @@ import { useYAMLPersistence, downloadFile } from "./persistence";
 import { useYAMLParsing } from "./parsing";
 
 export function App() {
-  const { queue, blob } = useRender();
+  const { queue, blob, setBlob } = useRender();
   const { zoomIn, zoomOut, scale } = useScale({ minScale: 0.5, maxScale: 2 });
   const [title, setTitle] = useState("Untitled");
 
@@ -49,10 +49,16 @@ export function App() {
     }
   }, [blob, title]);
 
+  const onNewResume = useCallback(() => {
+    setTitle("Untitled");
+    setYAML("");
+    setBlob(null);
+  }, [setYAML, setBlob]);
+
   return (
     <div className="App">
       <ControlsLayout
-        left={<FileControls onOpen={open} onSave={save} />}
+        left={<FileControls onOpen={open} onSave={save} onNew={onNewResume} />}
         center={<TitleControls title={title} onChange={setTitle} />}
         right={
           <PreviewControls

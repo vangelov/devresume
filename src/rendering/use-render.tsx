@@ -68,5 +68,5 @@ export function useRender() {
 
   const queue = useMemo(() => ({ push, clear }), [push, clear]);
 
-  return { queue, blob };
+  return { queue, blob, setBlob };
 }

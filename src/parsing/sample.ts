@@ -1,5 +1,5 @@
 export const SAMPLE_YAML = `
-# Adapted from https://github.com/jsonresume/resume-schema/blob/master/sample.resume.json
+# Demo resume adapted from https://github.com/jsonresume/resume-schema/blob/master/sample.resume.json
 
 basics:
   name: Richard Hendriks
@@ -44,7 +44,7 @@ work:
 
       - Optimized an algorithm that holds the current world record for 
         Weisman Scores
-        
+         
 volunteer:
   - organization: CoderDojo
     position: Teacher

@@ -4,3 +4,4 @@ export * from "./pdf-icon";
 export * from "./zoom-in-icon";
 export * from "./zoom-out-icon";
 export * from "./info-icon";
+export * from "./plus-icon";
