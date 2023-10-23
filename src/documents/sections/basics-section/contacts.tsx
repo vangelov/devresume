@@ -3,7 +3,6 @@ import {
   GitHubIcon,
   GlobeIcon,
   LinkedInIcon,
-  LocationIcon,
   MailIcon,
   PhoneIcon,
 } from "../../icons";

@@ -1,4 +1,3 @@
-import { InfoIcon } from "../../../icons";
 import { Location } from "../../../types";
 import { GlobeIcon } from "../../icons";
 import { Theme } from "../../theme";
