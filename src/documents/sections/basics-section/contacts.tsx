@@ -11,6 +11,7 @@ import { VStack } from "../../stack";
 import { Basics, Profile } from "../../../types";
 import { Style } from "@react-pdf/types";
 import { Theme } from "../../theme";
+import { LocationInfoItem } from "./location-info-item";
 
 export type Props = {
   basics: Basics;
@@ -46,12 +47,8 @@ export function Contacts({ basics, style, theme }: Props) {
       {basics.url && (
         <InfoItem theme={theme} icon={<GlobeIcon />} value={basics.url} />
       )}
-      {basics.location && basics.location.address && (
-        <InfoItem
-          theme={theme}
-          icon={<LocationIcon />}
-          value={basics.location.address}
-        />
+      {basics.location && (
+        <LocationInfoItem theme={theme} location={basics.location} />
       )}
       {githubProfile && githubProfile.url && (
         <InfoItem

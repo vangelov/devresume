@@ -13,6 +13,7 @@ export type Profile = {
   network?: "github" | "linkedin";
   url?: string;
 };
+export type Location = { city?: string; countryCode?: string };
 
 export type Basics = {
   name?: string;
@@ -21,7 +22,7 @@ export type Basics = {
   email?: string;
   url?: string;
   summary?: string;
-  location?: { address?: string };
+  location?: Location;
   profiles: Array<Profile>;
 };
 
