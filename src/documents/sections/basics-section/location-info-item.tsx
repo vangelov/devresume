@@ -1,5 +1,5 @@
 import { Location } from "../../../types";
-import { GlobeIcon, MapPinIcon } from "../../icons";
+import { MapPinIcon } from "../../icons";
 import { Theme } from "../../theme";
 import { InfoItem } from "./info-item";
 

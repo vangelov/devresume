@@ -29,7 +29,7 @@ export function createTypeHighlighter() {
           {space}
           {name}
         </span>
-        : <span className="Schema-Plain">{"{"}</span>
+        ?: <span className="Schema-Plain">{"{"}</span>
         <br />
       </Fragment>
     );
