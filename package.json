@@ -19,8 +19,6 @@
     "@uiw/codemirror-theme-github": "^4.19.9",
     "@uiw/codemirror-theme-vscode": "^4.21.18",
     "@uiw/react-codemirror": "^4.19.9",
-    "ajv": "^8.12.0",
-    "js-yaml": "^4.1.0",
     "markdown-to-jsx": "^7.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
