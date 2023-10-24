@@ -1,7 +1,5 @@
 import { useCallback } from "react";
-import { downloadFile } from "./download-file";
-import { readFile } from "./read-file";
-import { selectFile } from "./select-file";
+import { downloadFile, readFile, selectFile } from "./file-management";
 
 type Props = {
   title: string;
@@ -15,7 +13,8 @@ export function useYAMLPersistence({
   onFileOpened,
 }: Props) {
   const save = useCallback(() => {
-    downloadFile(title + ".yaml", new Blob([contents], { type: "text/yaml" }));
+    const blob = new Blob([contents], { type: "text/yaml" });
+    downloadFile(title + ".yaml", blob);
   }, [title, contents]);
 
   const open = useCallback(async () => {
@@ -25,9 +24,10 @@ export function useYAMLPersistence({
       const fileContents = await readFile(file);
       const extStartIndex = file.name.lastIndexOf(".");
       const fileTitle = file.name.slice(0, extStartIndex);
+
       onFileOpened(fileTitle, fileContents);
     } catch (e) {
-      console.error("Cannot read file: ", file.name);
+      console.error("Cannot read file: ", file.name, e);
     }
   }, [onFileOpened]);
 

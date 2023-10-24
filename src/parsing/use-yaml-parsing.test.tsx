@@ -26,15 +26,15 @@ test("returns the sample YAML if never used before", () => {
 });
 
 test("updates the value in localStorage", () => {
-  let callback: (yaml: string) => void;
-  const deferred = new Promise((resolve) => {
-    callback = resolve;
+  let yamlResolve: (yaml: string) => void;
+  const yamlDeferred = new Promise((resolve) => {
+    yamlResolve = resolve;
   });
 
   const { result } = renderHook(() =>
     useYAMLParsing({
       onYAMLParsed: (yaml) => {
-        callback(yaml);
+        yamlResolve(yaml);
       },
     })
   );
@@ -43,26 +43,26 @@ test("updates the value in localStorage", () => {
     result.current.setYAML(yaml);
   });
 
-  expect(deferred).resolves.toBe(yaml);
+  expect(yamlDeferred).resolves.toBe(yaml);
 });
 
 describe("callback", () => {
   test("calls with the YAML and the parsed json if valid", async () => {
-    let yamlCallback: (yaml: string) => void;
+    let yamlResolve: (yaml: string) => void;
     const yamlDeferred = new Promise((resolve) => {
-      yamlCallback = resolve;
+      yamlResolve = resolve;
     });
 
-    let jsonCallback: (json: object | undefined) => void;
+    let jsonResolve: (json: object | undefined) => void;
     const jsonDeferred = new Promise((resolve) => {
-      jsonCallback = resolve;
+      jsonResolve = resolve;
     });
 
     const { result } = renderHook(() =>
       useYAMLParsing({
         onYAMLParsed: (yaml, json) => {
-          yamlCallback(yaml);
-          jsonCallback(json);
+          yamlResolve(yaml);
+          jsonResolve(json);
         },
       })
     );
@@ -75,21 +75,21 @@ describe("callback", () => {
   });
 
   test("calls with the YAML and null if invalid", async () => {
-    let yamlCallback: (yaml: string) => void;
+    let yamlResolve: (yaml: string) => void;
     const yamlDeferred = new Promise((resolve) => {
-      yamlCallback = resolve;
+      yamlResolve = resolve;
     });
 
-    let jsonCallback: (json: object | undefined) => void;
+    let jsonResolve: (json: object | undefined) => void;
     const jsonDeferred = new Promise((resolve) => {
-      jsonCallback = resolve;
+      jsonResolve = resolve;
     });
 
     const { result } = renderHook(() =>
       useYAMLParsing({
         onYAMLParsed: (yaml, json) => {
-          yamlCallback(yaml);
-          jsonCallback(json);
+          yamlResolve(yaml);
+          jsonResolve(json);
         },
       })
     );
