@@ -33,7 +33,7 @@ export function yamlToJSON(yaml: string): Result {
   if (parseResult.errorMessage)
     return resultForParseError(parseResult.errorMessage);
 
-  if (parseResult.json) {
+  if (parseResult.json && typeof parseResult.json === "object") {
     const validationResult = validateJSON(parseResult.json);
 
     if (validationResult.errorMessages)
