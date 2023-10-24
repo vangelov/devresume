@@ -23,8 +23,8 @@ function createHighlightedElements() {
   highligher.addStringField("position");
   highligher.addStringField("url");
   highligher.addStringField("summary");
-  highligher.addDateField("startDate");
-  highligher.addDateField("endDate");
+  highligher.addStringField("startDate", { date: true });
+  highligher.addStringField("endDate", { date: true });
   highligher.addArrayOfStringsField("highlights", { markdown: true });
   highligher.pop();
 
@@ -35,53 +35,53 @@ function createHighlightedElements() {
 
   highligher.pushArrayOfObjects("work");
   highligher.addStringField("name");
-  highligher.addStringField("description");
+  highligher.addStringField("description", { markdown: true });
   highligher.addStringField("url");
-  highligher.addDateField("startDate");
-  highligher.addDateField("endDate");
-  highligher.addArrayOfStringsField("highlights");
+  highligher.addStringField("startDate", { date: true });
+  highligher.addStringField("endDate", { date: true });
+  highligher.addArrayOfStringsField("highlights", { markdown: true });
   highligher.pop();
 
   highligher.pushArrayOfObjects("education");
   highligher.addStringField("institution");
   highligher.addStringField("url");
   highligher.addStringField("area");
-  highligher.addStringField("score");
-  highligher.addDateField("startDate");
-  highligher.addDateField("endDate");
+  highligher.addStringField("score", { markdown: true });
+  highligher.addStringField("startDate", { date: true });
+  highligher.addStringField("endDate", { date: true });
   highligher.addArrayOfStringsField("courses");
   highligher.pop();
 
   highligher.pushArrayOfObjects("awards");
   highligher.addStringField("title");
   highligher.addStringField("awarder");
-  highligher.addDateField("date");
-  highligher.addStringField("summary");
+  highligher.addStringField("date", { date: true });
+  highligher.addStringField("summary", { markdown: true });
   highligher.pop();
 
   highligher.pushArrayOfObjects("certificates");
   highligher.addStringField("name");
   highligher.addStringField("url");
-  highligher.addDateField("date");
+  highligher.addStringField("date", { date: true });
   highligher.addStringField("issuer");
   highligher.pop();
 
   highligher.pushArrayOfObjects("publications");
   highligher.addStringField("name");
   highligher.addStringField("publisher");
-  highligher.addDateField("releaseDate");
+  highligher.addStringField("releaseDate", { date: true });
   highligher.addStringField("url");
-  highligher.addStringField("summary");
+  highligher.addStringField("summary", { markdown: true });
   highligher.pop();
 
   highligher.pushArrayOfObjects("volunteer");
   highligher.addStringField("organization");
   highligher.addStringField("position");
   highligher.addStringField("url");
-  highligher.addStringField("summary");
-  highligher.addDateField("startDate");
-  highligher.addDateField("endDate");
-  highligher.addArrayOfStringsField("highlights");
+  highligher.addStringField("summary", { markdown: true });
+  highligher.addStringField("startDate", { date: true });
+  highligher.addStringField("endDate", { date: true });
+  highligher.addArrayOfStringsField("highlights", { markdown: true });
   highligher.pop();
 
   highligher.pushObject("meta");
@@ -109,17 +109,14 @@ export function Schema() {
       >
         <span className="Schema-Comment">
           // Use this as a guide. It shows the supported fields from the JSON
+          resume schema
           <br />
-          // resume schema expressed in TypeScript so they're easier to read.{" "}
-          <br />
+          // (jsonresume.org/schema) expressed in TypeScript so they're easier
+          to read. <br />
           // -------------------------------------------------------------------
           <br />
           // Where noted you can use the following Markdown subset: <br />
           // *bold*, **italics**, [label](link). <br />
-          // -------------------------------------------------------------------
-          <br />
-          // Dates are formated as YYYY or "YYYY-MM".
-          <br />
         </span>
         <br />
 

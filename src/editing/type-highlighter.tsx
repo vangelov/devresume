@@ -78,13 +78,17 @@ export function createTypeHighlighter() {
     );
   }
 
-  function renderFieldEnd({ markdown = false }: { markdown?: boolean } = {}) {
+  function renderFieldEnd({
+    markdown = false,
+    date = false,
+  }: { markdown?: boolean; date?: boolean } = {}) {
     return (
       <>
         <span className="Schema-Plain">;</span>
         {markdown && (
-          <span className="Schema-Comment"> // supports Markdown</span>
+          <span className="Schema-Comment"> // supports Markdown subset</span>
         )}
+        {date && <span className="Schema-Comment"> // YYYY or YYYY-MM</span>}
         <br />
       </>
     );
@@ -92,13 +96,16 @@ export function createTypeHighlighter() {
 
   function addStringField(
     name: string,
-    { markdown = false }: { markdown?: boolean } = {}
+    {
+      markdown = false,
+      date = false,
+    }: { markdown?: boolean; date?: boolean } = {}
   ) {
     result.push(
       <Fragment key={lastKey++}>
         {renderFieldName(name)}
         ?: <span className="Schema-Type">string</span>
-        {renderFieldEnd({ markdown })}
+        {renderFieldEnd({ markdown, date })}
       </Fragment>
     );
   }
@@ -108,16 +115,6 @@ export function createTypeHighlighter() {
       <Fragment key={lastKey++}>
         {renderFieldName(name)}
         ?: <span className="Schema-Type">number</span>
-        {renderFieldEnd()}
-      </Fragment>
-    );
-  }
-
-  function addDateField(name: string) {
-    result.push(
-      <Fragment key={lastKey++}>
-        {renderFieldName(name)}
-        ?: <span className="Schema-Type">string | number</span>
         {renderFieldEnd()}
       </Fragment>
     );
@@ -160,7 +157,7 @@ export function createTypeHighlighter() {
     pop,
     pushType,
     addEnumField,
-    addDateField,
+
     addNumberField,
     result,
   };
