@@ -16,7 +16,9 @@ import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 
 export function App() {
   const { queue, blob, setBlob } = useRender();
-  const { zoomIn, zoomOut, scale } = useScale({ minScale: 0.5, maxScale: 2 });
+  const { zoomIn, zoomOut, scale, maxScaleReached, minScaleReached } = useScale(
+    { minScale: 0.5, maxScale: 2 }
+  );
   const [title, setTitle] = useState("Untitled");
   const codeMirrorRef: RefObject<ReactCodeMirrorRef> = useRef(null);
 
@@ -69,6 +71,8 @@ export function App() {
         right={
           <PreviewControls
             onDownload={onDownload}
+            zoomInDisabled={maxScaleReached}
+            zoomOutDisabled={minScaleReached}
             onZoomIn={zoomIn}
             onZoomOut={zoomOut}
           />

@@ -59,6 +59,8 @@ test("increases the scale no more than maxScale", () => {
   });
 
   expect(result.current.scale).toBe(maxScale);
+  expect(result.current.maxScaleReached).toBe(true);
+  expect(result.current.minScaleReached).toBe(false);
 });
 
 test("decreases the scale no less than minScale", () => {
@@ -78,4 +80,6 @@ test("decreases the scale no less than minScale", () => {
   });
 
   expect(result.current.scale).toBe(minScale);
+  expect(result.current.minScaleReached).toBe(true);
+  expect(result.current.maxScaleReached).toBe(false);
 });

@@ -95,3 +95,8 @@ button.primary:active {
   color: var(--color-black);
   background-color: var(--color-white);
 }
+
+button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -3,6 +3,8 @@ import "./preview-controls.css";
 import { ZoomOutIcon, PDFIcon, ZoomInIcon } from "../icons";
 
 type Props = {
+  zoomInDisabled: boolean;
+  zoomOutDisabled: boolean;
   onZoomIn: () => void;
   onZoomOut: () => void;
   onDownload: () => void;
@@ -10,6 +12,8 @@ type Props = {
 };
 
 export function PreviewControls({
+  zoomInDisabled,
+  zoomOutDisabled,
   onZoomIn,
   onZoomOut,
   onDownload,
@@ -17,11 +21,11 @@ export function PreviewControls({
 }: Props) {
   return (
     <div className="PreviewControls" style={style}>
-      <button title="Zoom out" onClick={onZoomOut}>
+      <button disabled={zoomOutDisabled} title="Zoom out" onClick={onZoomOut}>
         <ZoomOutIcon size={16} />
       </button>
 
-      <button title="Zoom in" onClick={onZoomIn}>
+      <button disabled={zoomInDisabled} title="Zoom in" onClick={onZoomIn}>
         <ZoomInIcon size={16} />
       </button>
 
