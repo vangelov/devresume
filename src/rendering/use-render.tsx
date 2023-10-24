@@ -2,10 +2,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { pdf } from "@react-pdf/renderer";
 import { ResumeDocument } from "../documents";
 import { Resume } from "../types";
-
-function sleep(delay: number = 1000) {
-  return new Promise((resolve) => setTimeout(resolve, delay));
-}
+import { sleep } from "../utils";
 
 function createDebouncedQueue<T>(
   callback: (items: Array<T>) => Promise<void>,
@@ -52,10 +49,10 @@ export function useRender() {
 
           setBlob(newBlob);
         } catch (e) {
-          // Do nothing
+          console.error("Cannot create PDF");
         }
       }
-    }, 500)
+    }, 200)
   );
 
   const push = useCallback((json: Resume | null) => {

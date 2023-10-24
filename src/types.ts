@@ -23,7 +23,7 @@ export type Basics = {
   url?: string;
   summary?: string;
   location?: Location;
-  profiles: Array<Profile>;
+  profiles?: Array<Profile>;
 };
 
 export type Skill = {

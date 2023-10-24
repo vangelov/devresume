@@ -16,6 +16,8 @@ basics
 
 const json = { basics: { name: "Test" } };
 
+//
+
 test("returns the sample YAML if never used before", () => {
   const { result } = renderHook(() =>
     useYAMLParsing({ onYAMLParsed: () => {} })
@@ -45,7 +47,7 @@ test("updates the value in localStorage", () => {
 });
 
 describe("callback", () => {
-  test("calls with the YAML and the parsed json", async () => {
+  test("calls with the YAML and the parsed json if valid", async () => {
     let yamlCallback: (yaml: string) => void;
     const yamlDeferred = new Promise((resolve) => {
       yamlCallback = resolve;
