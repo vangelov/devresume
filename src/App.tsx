@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { RefObject, useCallback, useRef, useState } from "react";
 import { PDF, useRender, useScale } from "./rendering";
 import { Schema, YAMLEditor } from "./editing";
 import "split-pane-react/esm/themes/default.css";
@@ -12,11 +12,13 @@ import { PanesLayout } from "./panes-layout";
 import "./app.css";
 import { useYAMLPersistence, downloadFile } from "./persistence";
 import { useYAMLParsing } from "./parsing";
+import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 
 export function App() {
   const { queue, blob, setBlob } = useRender();
   const { zoomIn, zoomOut, scale } = useScale({ minScale: 0.5, maxScale: 2 });
   const [title, setTitle] = useState("Untitled");
+  const codeMirrorRef: RefObject<ReactCodeMirrorRef> = useRef(null);
 
   // Parsing
   const onYAMLParsed = useCallback(
@@ -53,6 +55,10 @@ export function App() {
     setTitle("Untitled");
     setYAML("");
     setBlob(null);
+
+    if (codeMirrorRef.current && codeMirrorRef.current.view) {
+      codeMirrorRef.current.view.focus();
+    }
   }, [setYAML, setBlob]);
 
   return (
@@ -70,7 +76,13 @@ export function App() {
       />
 
       <PanesLayout
-        left={<YAMLEditor value={yaml} onChange={setYAML} />}
+        left={
+          <YAMLEditor
+            value={yaml}
+            onChange={setYAML}
+            codeMirrorRef={codeMirrorRef}
+          />
+        }
         right={<PDF scale={scale} blob={blob} />}
         bottom={<Schema />}
       />
