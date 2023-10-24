@@ -2,15 +2,16 @@ import { useCallback, useState } from "react";
 import { clamp } from "../utils/clamp";
 
 type Props = {
+  absDelta?: number;
   minScale: number;
   maxScale: number;
 };
 
-const INITIAL_SCALE = 1;
-const DELTA = 0.1;
-const STORAGE_KEY = "scale";
+export const ABS_DELTA = 0.1;
+export const INITIAL_SCALE = 1;
+export const STORAGE_KEY = "scale";
 
-export function useScale({ minScale, maxScale }: Props) {
+export function useScale({ minScale, maxScale, absDelta = ABS_DELTA }: Props) {
   const [scale, setScale] = useState(
     () => Number(localStorage.getItem(STORAGE_KEY)) || INITIAL_SCALE
   );
@@ -28,12 +29,12 @@ export function useScale({ minScale, maxScale }: Props) {
   );
 
   const zoomIn = useCallback(() => {
-    updateScale(DELTA);
-  }, [updateScale]);
+    updateScale(absDelta);
+  }, [updateScale, absDelta]);
 
   const zoomOut = useCallback(() => {
-    updateScale(-DELTA);
-  }, [updateScale]);
+    updateScale(-absDelta);
+  }, [updateScale, absDelta]);
 
   return {
     scale,
