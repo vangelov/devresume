@@ -12,9 +12,13 @@ type Props = {
 export function FileControls({ onSave, onOpen, onNew, style }: Props) {
   return (
     <div className="FileControls" style={style}>
-      <button title="About" onClick={() => {}}>
+      <a
+        title="About"
+        target="_blank"
+        href="https://github.com/vangelov/devresume"
+      >
         <InfoIcon size={16} />
-      </button>
+      </a>
 
       <button onClick={onSave}>
         <DownloadIcon size={14} style={{ marginRight: "0.5rem" }} />

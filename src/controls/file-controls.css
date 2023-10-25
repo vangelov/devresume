@@ -2,4 +2,5 @@
   gap: var(--space-3);
   display: flex;
   padding: var(--space-6);
+  color: white;
 }

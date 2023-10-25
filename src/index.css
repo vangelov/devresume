@@ -69,7 +69,8 @@ input {
   background: var(--color-gray-100);
 }
 
-button {
+button,
+a {
   border: none;
   padding: var(--space-2) var(--space-8) var(--space-2);
   background-color: var(--color-gray-300);
@@ -78,7 +79,8 @@ button {
   font-size: var(--font-size-1);
 }
 
-button:hover {
+button:hover,
+a:hover {
   background-color: var(--color-gray-500);
 }
 
@@ -91,12 +93,14 @@ button.primary:hover {
 }
 
 button:active,
-button.primary:active {
+button.primary:active,
+a:active {
   color: var(--color-black);
   background-color: var(--color-white);
 }
 
-button:disabled {
+button:disabled,
+a:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
