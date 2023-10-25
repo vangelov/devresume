@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import { createDebouncedQueue } from "./debounced-queue";
+import { createDeferred } from "../utils";
 
 const ITEM1 = "1";
 const ITEM2 = "2";
@@ -8,14 +9,11 @@ const ITEM3 = "3";
 const DELAY = 200;
 
 test("calls the callback with only the items pushed before the delay", async () => {
-  let callback: (items: Array<string>) => void;
   const delay = 200;
-  const deferred = new Promise((resolve) => {
-    callback = resolve;
-  });
+  const deferred = createDeferred<Array<string>>();
 
   const queue = createDebouncedQueue<string>((items) => {
-    callback(items);
+    deferred.resolve(items);
     return Promise.resolve();
   }, DELAY);
 
@@ -31,28 +29,24 @@ test("calls the callback with only the items pushed before the delay", async () 
     queue.push(ITEM3);
   }, 2 * delay);
 
-  expect(deferred).resolves.toStrictEqual([ITEM1, ITEM2]);
+  expect(deferred.promise).resolves.toStrictEqual([ITEM1, ITEM2]);
 });
 
 test("calls the callback a one more time with the items pushed during the first callback", async () => {
-  let callback: (items: Array<string>) => void;
-  const deferred = new Promise((resolve) => {
-    callback = resolve;
-  });
-  let callback2: (items: Array<string>) => void;
-  const deferred2 = new Promise((resolve) => {
-    callback2 = resolve;
-  });
+  const deferred1 = createDeferred<Array<string>>();
+  const deferred2 = createDeferred<Array<string>>();
+  let deferred = deferred1;
 
   const queue = createDebouncedQueue<string>((items) => {
-    callback(items);
-    callback = callback2;
+    deferred.resolve(items);
+    deferred = deferred2;
+
     queue.push(ITEM2);
     queue.push(ITEM3);
     return Promise.resolve();
   }, DELAY);
 
   queue.push(ITEM1);
-  expect(deferred).resolves.toStrictEqual([ITEM1]);
-  expect(deferred2).resolves.toStrictEqual([ITEM2, ITEM3]);
+  expect(deferred.promise).resolves.toStrictEqual([ITEM1]);
+  expect(deferred2.promise).resolves.toStrictEqual([ITEM2, ITEM3]);
 });

@@ -3,6 +3,7 @@ import { renderHook } from "@testing-library/react";
 import { useYAMLPersistence } from ".";
 import * as fileManagement from "./file-management";
 import { vi } from "vitest";
+import { createDeferred } from "../utils";
 
 describe("use-yaml-persistence", () => {
   afterEach(() => {
@@ -34,30 +35,23 @@ describe("use-yaml-persistence", () => {
       Promise.resolve("contents")
     );
 
-    let fileTitleResolve: (fileTitle: string) => void;
-    const fileTitleDeferred = new Promise((resolve) => {
-      fileTitleResolve = resolve;
-    });
-
-    let fileContentsResolve: (fileContents: string) => void;
-    const fileContentsDeferred = new Promise((resolve) => {
-      fileContentsResolve = resolve;
-    });
+    const fileTitleDeferred = createDeferred<string>();
+    const fileContentsDeferred = createDeferred<string>();
 
     const { result } = renderHook(() =>
       useYAMLPersistence({
         title: "title",
         yaml: "",
         onFileOpened: (fileTitle, fileContents) => {
-          fileTitleResolve(fileTitle);
-          fileContentsResolve(fileContents);
+          fileTitleDeferred.resolve(fileTitle);
+          fileContentsDeferred.resolve(fileContents);
         },
       })
     );
 
     result.current.open();
 
-    expect(fileTitleDeferred).resolves.toBe("file");
-    expect(fileContentsDeferred).resolves.toBe(fileContents);
+    expect(fileTitleDeferred.promise).resolves.toBe("file");
+    expect(fileContentsDeferred.promise).resolves.toBe(fileContents);
   });
 });

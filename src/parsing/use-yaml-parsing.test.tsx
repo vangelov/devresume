@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 import { act, renderHook } from "@testing-library/react";
 import { useYAMLParsing } from ".";
 import { SAMPLE_YAML } from "./sample";
+import { createDeferred } from "../utils";
 
 const yaml = `
 basics:
@@ -26,15 +27,12 @@ test("returns the sample YAML if never used before", () => {
 });
 
 test("updates the value in localStorage", () => {
-  let yamlResolve: (yaml: string) => void;
-  const yamlDeferred = new Promise((resolve) => {
-    yamlResolve = resolve;
-  });
+  const yamlDeferred = createDeferred<string>();
 
   const { result } = renderHook(() =>
     useYAMLParsing({
       onYAMLParsed: (yaml) => {
-        yamlResolve(yaml);
+        yamlDeferred.resolve(yaml);
       },
     })
   );
@@ -43,61 +41,49 @@ test("updates the value in localStorage", () => {
     result.current.setYAML(yaml);
   });
 
-  expect(yamlDeferred).resolves.toBe(yaml);
+  expect(yamlDeferred.promise).resolves.toBe(yaml);
 });
 
 describe("callback", () => {
   test("calls with the YAML and the parsed json if valid", async () => {
-    let yamlResolve: (yaml: string) => void;
-    const yamlDeferred = new Promise((resolve) => {
-      yamlResolve = resolve;
-    });
-
-    let jsonResolve: (json: object | undefined) => void;
-    const jsonDeferred = new Promise((resolve) => {
-      jsonResolve = resolve;
-    });
+    const yamlDeferred = createDeferred<string>();
+    const jsonDeferred = createDeferred<object | undefined>();
 
     const { result } = renderHook(() =>
       useYAMLParsing({
         onYAMLParsed: (yaml, json) => {
-          yamlResolve(yaml);
-          jsonResolve(json);
+          yamlDeferred.resolve(yaml);
+          jsonDeferred.resolve(json);
         },
       })
     );
+
     act(() => {
       result.current.setYAML(yaml);
     });
 
-    expect(yamlDeferred).resolves.toBe(yaml);
-    expect(jsonDeferred).resolves.toStrictEqual(json);
+    expect(yamlDeferred.promise).resolves.toBe(yaml);
+    expect(jsonDeferred.promise).resolves.toStrictEqual(json);
   });
 
   test("calls with the YAML and null if invalid", async () => {
-    let yamlResolve: (yaml: string) => void;
-    const yamlDeferred = new Promise((resolve) => {
-      yamlResolve = resolve;
-    });
-
-    let jsonResolve: (json: object | undefined) => void;
-    const jsonDeferred = new Promise((resolve) => {
-      jsonResolve = resolve;
-    });
+    const yamlDeferred = createDeferred<string>();
+    const jsonDeferred = createDeferred<object | undefined>();
 
     const { result } = renderHook(() =>
       useYAMLParsing({
         onYAMLParsed: (yaml, json) => {
-          yamlResolve(yaml);
-          jsonResolve(json);
+          yamlDeferred.resolve(yaml);
+          jsonDeferred.resolve(json);
         },
       })
     );
+
     act(() => {
       result.current.setYAML(invalidYAML);
     });
 
-    expect(yamlDeferred).resolves.toBe(invalidYAML);
-    expect(jsonDeferred).resolves.toBe(undefined);
+    expect(yamlDeferred.promise).resolves.toBe(invalidYAML);
+    expect(jsonDeferred.promise).resolves.toBe(undefined);
   });
 });
