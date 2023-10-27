@@ -50,7 +50,11 @@ export function MultiPageDocument({
   }, [pagesCount, onPageRenderSuccess, scale]);
 
   return (
-    <div style={{ position: "absolute", left: "var(--left)" }}>
+    <div
+      data-testid="pdf-document"
+      data-scale={scale}
+      style={{ position: "absolute", left: "var(--left)" }}
+    >
       <Document
         loading={null}
         onLoadSuccess={onDocumentLoadSuccess}

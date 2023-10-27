@@ -29,8 +29,10 @@
     "z-schema": "^6.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.39.0",
     "@testing-library/react": "^14.0.0",
     "@types/codemirror": "^5.60.10",
+    "@types/node": "^20.8.8",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

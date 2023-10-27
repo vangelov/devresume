@@ -21,15 +21,25 @@ export function PreviewControls({
 }: Props) {
   return (
     <div className="PreviewControls" style={style}>
-      <button disabled={zoomOutDisabled} title="Zoom out" onClick={onZoomOut}>
+      <button
+        disabled={zoomOutDisabled}
+        data-testid="zoom-out"
+        title="Zoom out"
+        onClick={onZoomOut}
+      >
         <ZoomOutIcon size={16} />
       </button>
 
-      <button disabled={zoomInDisabled} title="Zoom in" onClick={onZoomIn}>
+      <button
+        disabled={zoomInDisabled}
+        data-testid="zoom-in"
+        title="Zoom in"
+        onClick={onZoomIn}
+      >
         <ZoomInIcon size={16} />
       </button>
 
-      <button className="primary" onClick={onDownload}>
+      <button className="primary" data-testid="export" onClick={onDownload}>
         <PDFIcon size={14} style={{ marginRight: "0.5rem" }} />
         Export
       </button>

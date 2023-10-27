@@ -12,6 +12,7 @@ export function TitleControls({ title, onChange, style }: Props) {
     <div className="TitleControls" style={style}>
       <input
         className="TitleControls-Input"
+        data-testid="title"
         value={title}
         onChange={(event) => onChange(event.target.value)}
         onBlur={(event) => {

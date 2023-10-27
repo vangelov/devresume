@@ -40,7 +40,7 @@ function UnmemoizedPDF({ blob, scale }: Props) {
   });
 
   return (
-    <div ref={ref} className="PDF">
+    <div ref={ref} data-testid="pdf" className="PDF">
       <DoubleBuffered blob={blob} scale={scale} />
     </div>
   );
