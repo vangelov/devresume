@@ -34,7 +34,7 @@ export type Skill = {
 export type Project = {
   name?: string;
   description?: string;
-  highlights?: Array<string>;
+  highlights?: Array<string | null>;
   startDate?: string | number;
   endDate?: string | number;
   url?: string;
@@ -45,7 +45,7 @@ export type EducationPlace = {
   url?: string;
   area?: string;
   score?: string;
-  courses?: Array<string>;
+  courses?: Array<string | null>;
   startDate?: string | number;
   endDate?: string | number;
 };
@@ -77,7 +77,7 @@ export type Voluteering = {
   url?: string;
   position?: string;
   summary?: string;
-  highlights?: Array<string>;
+  highlights?: Array<string | null>;
   startDate?: string | number;
   endDate?: string | number;
 };
@@ -89,13 +89,13 @@ export type Meta = {
 
 export type Resume = {
   basics?: Basics;
-  work?: Array<Job>;
-  skills?: Array<Skill>;
-  projects?: Array<Project>;
-  education?: Array<EducationPlace>;
-  awards?: Array<Award>;
-  certificates?: Array<Certificate>;
-  publications?: Array<Publication>;
-  volunteer?: Array<Voluteering>;
+  work?: Array<Job | null>;
+  skills?: Array<Skill | null>;
+  projects?: Array<Project | null>;
+  education?: Array<EducationPlace | null>;
+  awards?: Array<Award | null>;
+  certificates?: Array<Certificate | null>;
+  publications?: Array<Publication | null>;
+  volunteer?: Array<Voluteering | null>;
   meta?: Meta;
 };

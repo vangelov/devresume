@@ -30,16 +30,17 @@ export function AwardItem({ award, theme }: AwardItemProps) {
 //
 
 type SectionProps = {
-  awards: Array<Award>;
+  awards: Array<Award | null>;
   theme: Theme;
 };
 
 export function AwardsSection({ awards, theme }: SectionProps) {
   return (
     <EventsSection theme={theme} title="Awards">
-      {awards.map((award, index) => (
-        <AwardItem key={index} theme={theme} award={award} />
-      ))}
+      {awards.map(
+        (award, index) =>
+          award && <AwardItem key={index} theme={theme} award={award} />
+      )}
     </EventsSection>
   );
 }

@@ -17,16 +17,16 @@ export function SkillItem({ skill }: SkillItemProps) {
 //
 
 type Props = {
-  skills: Array<Skill>;
+  skills: Array<Skill | null>;
   theme: Theme;
 };
 
 export function SkillsSection({ skills, theme }: Props) {
   return (
     <GroupedSection theme={theme} title="Skills">
-      {skills.map((skill, index) => (
-        <SkillItem key={index} skill={skill} />
-      ))}
+      {skills.map(
+        (skill, index) => skill && <SkillItem key={index} skill={skill} />
+      )}
     </GroupedSection>
   );
 }

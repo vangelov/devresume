@@ -41,9 +41,14 @@ export function VolunteeringItem({
     >
       {volunteering.highlights &&
         Array.isArray(volunteering.highlights) &&
-        volunteering.highlights.map((highlight) => (
-          <EventHighlightItem key={highlight}>{highlight}</EventHighlightItem>
-        ))}
+        volunteering.highlights.map(
+          (highlight) =>
+            highlight && (
+              <EventHighlightItem key={highlight}>
+                {highlight}
+              </EventHighlightItem>
+            )
+        )}
     </EventItem>
   );
 }
@@ -51,20 +56,23 @@ export function VolunteeringItem({
 //
 
 type SectionProps = {
-  volunteer: Array<Voluteering>;
+  volunteer: Array<Voluteering | null>;
   theme: Theme;
 };
 
 export function VolunterrSection({ volunteer, theme }: SectionProps) {
   return (
     <EventsSection theme={theme} title="Volunteer">
-      {volunteer.map((volunteering, index) => (
-        <VolunteeringItem
-          key={index}
-          theme={theme}
-          volunteering={volunteering}
-        />
-      ))}
+      {volunteer.map(
+        (volunteering, index) =>
+          volunteering && (
+            <VolunteeringItem
+              key={index}
+              theme={theme}
+              volunteering={volunteering}
+            />
+          )
+      )}
     </EventsSection>
   );
 }

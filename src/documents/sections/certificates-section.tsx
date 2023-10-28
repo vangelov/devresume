@@ -30,16 +30,23 @@ export function CerticateItem({ certificate, theme }: CertificateItemProps) {
 //
 
 type SectionProps = {
-  certificates: Array<Certificate>;
+  certificates: Array<Certificate | null>;
   theme: Theme;
 };
 
 export function CertificatesSection({ theme, certificates }: SectionProps) {
   return (
     <EventsSection theme={theme} title="Certificates">
-      {certificates.map((certificate, index) => (
-        <CerticateItem key={index} theme={theme} certificate={certificate} />
-      ))}
+      {certificates.map(
+        (certificate, index) =>
+          certificate && (
+            <CerticateItem
+              key={index}
+              theme={theme}
+              certificate={certificate}
+            />
+          )
+      )}
     </EventsSection>
   );
 }

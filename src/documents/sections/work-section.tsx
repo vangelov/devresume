@@ -54,16 +54,16 @@ export function JobItem({ job, theme }: JobItemProps) {
 //
 
 type SectionProps = {
-  work: Array<Job>;
+  work: Array<Job | null>;
   theme: Theme;
 };
 
 export function WorkSection({ work, theme }: SectionProps) {
   return (
     <EventsSection theme={theme} title="Work Experience">
-      {work.map((job, index) => (
-        <JobItem key={index} theme={theme} job={job} />
-      ))}
+      {work.map(
+        (job, index) => job && <JobItem key={index} theme={theme} job={job} />
+      )}
     </EventsSection>
   );
 }

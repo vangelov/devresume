@@ -41,9 +41,12 @@ export function EducationPlaceItem({
     >
       {educationPlace.courses &&
         Array.isArray(educationPlace.courses) &&
-        educationPlace.courses.map((course) => (
-          <EventHighlightItem key={course}>{course}</EventHighlightItem>
-        ))}
+        educationPlace.courses.map(
+          (course) =>
+            course && (
+              <EventHighlightItem key={course}>{course}</EventHighlightItem>
+            )
+        )}
     </EventItem>
   );
 }
@@ -51,20 +54,23 @@ export function EducationPlaceItem({
 //
 
 type SectionProps = {
-  education: Array<EducationPlace>;
+  education: Array<EducationPlace | null>;
   theme: Theme;
 };
 
 export function EducationSection({ education, theme }: SectionProps) {
   return (
     <EventsSection theme={theme} title="Education">
-      {education.map((educationPlace, index) => (
-        <EducationPlaceItem
-          key={index}
-          theme={theme}
-          educationPlace={educationPlace}
-        />
-      ))}
+      {education.map(
+        (educationPlace, index) =>
+          educationPlace && (
+            <EducationPlaceItem
+              key={index}
+              theme={theme}
+              educationPlace={educationPlace}
+            />
+          )
+      )}
     </EventsSection>
   );
 }

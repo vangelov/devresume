@@ -23,9 +23,14 @@ export function ProjectItem({ project, theme }: ProjectItemProps) {
     >
       {project.highlights &&
         Array.isArray(project.highlights) &&
-        project.highlights.map((hightlight) => (
-          <EventHighlightItem key={hightlight}>{hightlight}</EventHighlightItem>
-        ))}
+        project.highlights.map(
+          (hightlight) =>
+            hightlight && (
+              <EventHighlightItem key={hightlight}>
+                {hightlight}
+              </EventHighlightItem>
+            )
+        )}
     </EventItem>
   );
 }
@@ -33,16 +38,17 @@ export function ProjectItem({ project, theme }: ProjectItemProps) {
 //
 
 type SectionProps = {
-  projects: Array<Project>;
+  projects: Array<Project | null>;
   theme: Theme;
 };
 
 export function ProjectsSection({ projects, theme }: SectionProps) {
   return (
     <EventsSection theme={theme} title="Projects">
-      {projects.map((project, index) => (
-        <ProjectItem key={index} theme={theme} project={project} />
-      ))}
+      {projects.map(
+        (project, index) =>
+          project && <ProjectItem key={index} theme={theme} project={project} />
+      )}
     </EventsSection>
   );
 }

@@ -30,16 +30,23 @@ export function PublicationItem({ publication, theme }: PublicationItemProps) {
 //
 
 type SectionProps = {
-  publications: Array<Publication>;
+  publications: Array<Publication | null>;
   theme: Theme;
 };
 
 export function PublicationsSection({ publications, theme }: SectionProps) {
   return (
     <EventsSection theme={theme} title="Publications">
-      {publications.map((publication, index) => (
-        <PublicationItem key={index} theme={theme} publication={publication} />
-      ))}
+      {publications.map(
+        (publication, index) =>
+          publication && (
+            <PublicationItem
+              key={index}
+              theme={theme}
+              publication={publication}
+            />
+          )
+      )}
     </EventsSection>
   );
 }
