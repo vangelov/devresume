@@ -1,6 +1,6 @@
 export function formatDate(stringOrNumber: string | number): string | null {
   const dateString = stringOrNumber.toString();
-  const parts = dateString.split("-");
+  const parts = dateString.split("-").filter((part) => part !== "");
   const partsCount = parts.length;
   if (partsCount === 0) return null;
 
