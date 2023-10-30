@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-
+    include: ["./src/**/*.test.*"],
     environment: "jsdom",
   },
 });
