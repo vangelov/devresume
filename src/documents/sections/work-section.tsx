@@ -44,9 +44,14 @@ export function JobItem({ job, theme }: JobItemProps) {
     >
       {job.highlights &&
         Array.isArray(job.highlights) &&
-        job.highlights.map((hightlight) => (
-          <EventHighlightItem key={hightlight}>{hightlight}</EventHighlightItem>
-        ))}
+        job.highlights.map(
+          (hightlight) =>
+            hightlight && (
+              <EventHighlightItem key={hightlight}>
+                {hightlight}
+              </EventHighlightItem>
+            )
+        )}
     </EventItem>
   );
 }
