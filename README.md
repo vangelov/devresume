@@ -21,7 +21,7 @@ Website: https://devresume.app
 ## Motivation
 
 DevResume helps developers and technical people to write their resume instead of wrestling with menus. 
-The configuration is based on a subset of the [JSON resume standard](https://jsonresume.org/). It includes only the actually useful parts of it. The best practices are already taken care based on the recommendations from the [Tech Resume book](https://thetechresume.com/). You are free on focus on what matters. 
+The configuration is based on a subset of the [JSON resume standard](https://jsonresume.org/). It includes only the actually useful parts of it. The best practices are already taken care based on the recommendations from the book [The Tech Resume Inside Out](https://thetechresume.com/). You are free to focus on what matters. 
 
 ## Scripts
 
