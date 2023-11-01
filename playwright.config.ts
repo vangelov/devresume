@@ -9,6 +9,15 @@ import { defineConfig, devices } from "@playwright/test";
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+const DEVICE_OVERRIDES = {
+  viewport: {
+    width: 1500,
+    height: 1000,
+  },
+  deviceScaleFactor: 2,
+};
+
 export default defineConfig({
   testDir: "./playwright",
 
@@ -33,17 +42,26 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"], deviceScaleFactor: 2 },
+      use: {
+        ...devices["Desktop Chrome"],
+        ...DEVICE_OVERRIDES,
+      },
     },
 
     {
       name: "firefox",
-      use: { ...devices["Desktop Firefox"], deviceScaleFactor: 2 },
+      use: {
+        ...devices["Desktop Firefox"],
+        ...DEVICE_OVERRIDES,
+      },
     },
 
     {
       name: "webkit",
-      use: { ...devices["Desktop Safari"], deviceScaleFactor: 2 },
+      use: {
+        ...devices["Desktop Safari"],
+        ...DEVICE_OVERRIDES,
+      },
     },
   ],
 });

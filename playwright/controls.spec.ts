@@ -51,10 +51,7 @@ test.describe("preview controls", () => {
 test.describe("file controls", () => {
   test("should open .yml files", async ({ page }) => {
     await page.goto("/");
-    await page.evaluate(() => {
-      localStorage["yaml"] = "";
-    });
-    await page.reload();
+    await Editor(page).clearAndRefresh();
 
     const fileChooserPromise = page.waitForEvent("filechooser");
     await FileControls(page).open();
