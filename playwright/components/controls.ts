@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 
 export function PreviewControls(page: Page) {
   const zoomIn = () => page.getByTestId("zoom-in").click();
@@ -19,5 +19,20 @@ export function TitleControls(page: Page) {
 
   return {
     setTitle,
+    expect: () => ({
+      toHaveTitle: (title: string) => expect(input).toHaveValue(title),
+    }),
+  };
+}
+
+export function FileControls(page: Page) {
+  const open = () => page.getByTestId("open").click();
+  const save = () => page.getByTestId("save").click();
+  const newResume = () => page.getByTestId("new").click();
+
+  return {
+    open,
+    save,
+    newResume,
   };
 }

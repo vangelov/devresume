@@ -26,6 +26,7 @@ export function PDFDocument(page: Page) {
     waitToZoomIn,
     waitToZoomOut,
     expect: () => ({
+      ...expect(self),
       async toHaveScreenshotsOfPages() {
         for (const page of await pages.all()) {
           await expect(page).toHaveScreenshot({ scale: "device" });
@@ -34,5 +35,3 @@ export function PDFDocument(page: Page) {
     }),
   };
 }
-
-export const t = 10;
