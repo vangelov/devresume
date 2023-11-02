@@ -1,6 +1,6 @@
 import { createTypeHighlighter } from "./type-highlighter";
 import "./schema.css";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 
 function createHighlightedElements() {
   const highligher = createTypeHighlighter();
@@ -94,7 +94,7 @@ function createHighlightedElements() {
   return highligher.result;
 }
 
-export function Schema() {
+export const Schema = memo(function () {
   const highlightedElements = useMemo(createHighlightedElements, []);
 
   return (
@@ -124,4 +124,4 @@ export function Schema() {
       </pre>
     </div>
   );
-}
+});

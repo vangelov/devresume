@@ -13,16 +13,15 @@ type Props = {
   codeMirrorRef: RefObject<ReactCodeMirrorRef>;
 };
 
-function UnmemoizedYAMLEditor({ value, onChange, codeMirrorRef }: Props) {
+export const YAMLEditor = memo(function ({
+  value,
+  onChange,
+  codeMirrorRef,
+}: Props) {
   return (
     <CodeMirror
       ref={codeMirrorRef}
       className="YAMLEditor"
-      onFocus={(event) => {
-        setTimeout(() => {
-          event.target.focus();
-        }, 3000);
-      }}
       value={value}
       onChange={onChange}
       theme={vscodeDarkInit({
@@ -31,6 +30,4 @@ function UnmemoizedYAMLEditor({ value, onChange, codeMirrorRef }: Props) {
       extensions={[yaml]}
     />
   );
-}
-
-export const YAMLEditor = memo(UnmemoizedYAMLEditor);
+});

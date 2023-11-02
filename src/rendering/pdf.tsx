@@ -9,7 +9,7 @@ type Props = {
   scale: number;
 };
 
-function UnmemoizedPDF({ blob, scale }: Props) {
+export const PDF = memo(function ({ blob, scale }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const widthRef = useRef(0);
 
@@ -57,6 +57,4 @@ function UnmemoizedPDF({ blob, scale }: Props) {
       <DoubleBuffered render={render} />
     </div>
   );
-}
-
-export const PDF = memo(UnmemoizedPDF);
+});
