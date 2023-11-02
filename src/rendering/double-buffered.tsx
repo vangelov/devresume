@@ -1,44 +1,44 @@
 import { ReactElement, cloneElement, useEffect, useRef, useState } from "react";
-import { MultiPageDocument } from "./multi-page-document";
-
-type Props = {
-  blob: Blob | null;
-  scale?: number;
-};
 
 type BufferElement = ReactElement | null;
 
-export function DoubleBuffered({ blob, scale = 1 }: Props) {
+type Props = {
+  render: (onSuccess: () => void) => BufferElement;
+};
+
+export function DoubleBuffered({ render }: Props) {
   const backElementRef = useRef<BufferElement>(null);
   const frontElementRef = useRef<BufferElement>(null);
   const [elements, setElements] = useState<null | Array<BufferElement>>(null);
   const lastKeyRef = useRef(0);
 
+  // setElements and frontElementRef are stable, so no need for useCallback
   const onRenderSuccess = () => {
-    frontElementRef.current = backElementRef.current;
+    frontElementRef.current = backElementRef.current
+      ? cloneElement(backElementRef.current, {
+          "data-ready": "true",
+        })
+      : null;
+
     setElements([frontElementRef.current]);
   };
 
   useEffect(() => {
-    if (blob) {
-      backElementRef.current = (
-        <MultiPageDocument
-          key={lastKeyRef.current}
-          onAllPagesRenderSuccess={onRenderSuccess}
-          blob={blob}
-        />
-      );
+    const renderedElement = render(onRenderSuccess);
+
+    if (renderedElement) {
+      const backElement = cloneElement(renderedElement, {
+        key: lastKeyRef.current,
+        "data-ready": "false",
+      });
+      backElementRef.current = backElement;
       lastKeyRef.current++;
       setElements([backElementRef.current, frontElementRef.current]);
     } else {
       backElementRef.current = null;
       onRenderSuccess();
     }
-  }, [blob]);
+  }, [render]);
 
-  const updatedElements = elements
-    ? elements.map((element) => element && cloneElement(element, { scale }))
-    : null;
-
-  return <div style={{ position: "relative" }}>{updatedElements}</div>;
+  return <div style={{ position: "relative" }}>{elements}</div>;
 }

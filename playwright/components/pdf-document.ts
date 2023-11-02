@@ -1,7 +1,9 @@
 import { Page, expect } from "@playwright/test";
 
 export function PDFDocument(page: Page) {
-  const self = page.getByTestId("pdf-document");
+  // We need to check the data-ready attribute as well
+  // in order to avoid getting the back buffer
+  const self = page.locator('[data-testid="pdf-document"][data-ready="true"]');
   const pages = page.locator(".react-pdf__Page");
 
   const waitToAppear = () => self.waitFor({ state: "visible" });

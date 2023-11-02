@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useRef } from "react";
 import { DoubleBuffered } from "./double-buffered";
 import useResizeObserver from "@react-hook/resize-observer";
 import "./pdf.css";
+import { MultiPageDocument } from "./multi-page-document";
 
 type Props = {
   blob: Blob | null;
@@ -30,7 +31,7 @@ function UnmemoizedPDF({ blob, scale }: Props) {
 
   useEffect(() => {
     update();
-  }, [scale, update]);
+  }, [update]);
 
   useResizeObserver(ref, (entry) => {
     if (ref.current) {
@@ -39,9 +40,21 @@ function UnmemoizedPDF({ blob, scale }: Props) {
     }
   });
 
+  const render = useCallback(
+    (onSuccess: () => void) =>
+      blob && (
+        <MultiPageDocument
+          scale={scale}
+          onAllPagesRenderSuccess={onSuccess}
+          blob={blob}
+        />
+      ),
+    [scale, blob]
+  );
+
   return (
     <div ref={ref} data-testid="pdf" className="PDF">
-      <DoubleBuffered blob={blob} scale={scale} />
+      <DoubleBuffered render={render} />
     </div>
   );
 }

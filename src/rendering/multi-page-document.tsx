@@ -1,16 +1,18 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { HTMLAttributes, useCallback, useMemo, useRef, useState } from "react";
 import { Document, Page } from "react-pdf";
 
 type Props = {
   blob: Blob;
   onAllPagesRenderSuccess: () => void;
   scale?: number;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
 export function MultiPageDocument({
   blob,
   scale = 1,
+  style,
   onAllPagesRenderSuccess,
+  ...rest
 }: Props) {
   const [pagesCount, setPagesCount] = useState(0);
   const renderedPagesCountRef = useRef(0);
@@ -53,7 +55,8 @@ export function MultiPageDocument({
     <div
       data-testid="pdf-document"
       data-scale={scale}
-      style={{ position: "absolute", left: "var(--left)" }}
+      style={{ position: "absolute", left: "var(--left)", ...style }}
+      {...rest}
     >
       <Document
         loading={null}
