@@ -7,8 +7,7 @@
 
 <div align="center">
 
-  <h3>Write your resume in YAML, export in PDF</h3>
-  <h5>A free web-based resume editor based on writing YAML with live preview and PDF export. </h5>
+  <h3>Resume creator based on writing YAML with live preview and PDF export.</h3>
   
 <br />
 
@@ -20,8 +19,8 @@ Website: https://devresume.app
 
 ## Motivation
 
-DevResume helps developers and technical people to write their resume instead of wrestling with menus. 
-The configuration is based on a subset of the [JSON resume standard](https://jsonresume.org/). It includes only the actually useful parts of it. The best practices are already taken care based on the recommendations from the book [The Tech Resume Inside Out](https://thetechresume.com/). You are free to focus on what matters. 
+DevResume helps developers and technical people write their resume instead of wrestling with buttons and menus. 
+The configuration is based on a subset of the [JSON resume standard](https://jsonresume.org/). It includes only the actually useful parts of it. The best practices are already taken care of based on the recommendations from the book [The Tech Resume Inside Out](https://thetechresume.com/). You are free to focus on the content. 
 
 ## Scripts
 
