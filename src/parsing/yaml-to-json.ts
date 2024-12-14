@@ -37,7 +37,7 @@ export function yamlToJSON(yaml: string): Result {
     const validationResult = validateJSON(parseResult.json);
 
     if (validationResult.errorMessages)
-      resultFromValidationErrors(validationResult.errorMessages);
+      return resultFromValidationErrors(validationResult.errorMessages);
 
     return {
       json: parseResult.json,

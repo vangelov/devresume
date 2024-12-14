@@ -12,12 +12,12 @@ type GroupItemProps = {
 
 export function GroupItem({ title, description }: GroupItemProps) {
   return (
-    <HStack style={{ alignItems: "flex-start" }}>
+    <HStack wrap={false} style={{ alignItems: "flex-start" }}>
       {title && (
         <Text style={{ flex: 0.6, fontWeight: "medium" }}>{title}</Text>
       )}
 
-      {description && (
+      {description ? (
         <View
           style={{
             flex: 1,
@@ -26,7 +26,7 @@ export function GroupItem({ title, description }: GroupItemProps) {
         >
           <RichText>{description}</RichText>
         </View>
-      )}
+      ) : null}
     </HStack>
   );
 }

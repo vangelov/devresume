@@ -106,13 +106,13 @@ export const publicationsYAML = `
 publications:
   - name: Name1
     publisher: Publiser1
-    releaseDate: 2014-21
+    releaseDate: 2014-12-06
     url: http://url1.test.com
     summary: Summary 1 **summary bold** *summary italic* [summary link](https://link.test.com).
    
   - name: Name2
     publisher: Publiser2
-    releaseDate: 2010-10
+    releaseDate: 2010-10-10
     url: http://url2.test.com
     summary: Summary 2 **summary bold** *summary italic* [summary link](https://link.test.com).
 `;

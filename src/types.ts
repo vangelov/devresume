@@ -85,6 +85,7 @@ export type Voluteering = {
 export type Meta = {
   accentColor?: string;
   baseFontSize?: number;
+  sectionsOrder?: ResumeSectionName[];
 };
 
 export type Resume = {
@@ -99,3 +100,5 @@ export type Resume = {
   volunteer?: Array<Voluteering | null>;
   meta?: Meta;
 };
+
+export type ResumeSectionName = Exclude<keyof Resume, "meta">;

@@ -15,6 +15,7 @@ import {
 import { Theme, createTheme } from "./theme";
 import { Bar } from "./bar";
 import { useMemo } from "react";
+import { getSectionsOrder } from "./utils";
 
 type Props = {
   resume: Resume;
@@ -50,6 +51,7 @@ export function ResumeDocument({ resume }: Props) {
 
   const accentColor = meta && meta.accentColor;
   const baseFontSize = meta && meta.baseFontSize;
+  const sectionsOrder = useMemo(() => getSectionsOrder(meta), [meta]);
 
   const theme = useMemo(
     () => createTheme(accentColor, baseFontSize),
@@ -62,37 +64,95 @@ export function ResumeDocument({ resume }: Props) {
       <Page style={styles.page} size="A4">
         <Bar theme={theme} />
         <VStack gap={theme.space[10]}>
-          {basics && <BasicsSection theme={theme} basics={basics} />}
-          {skills && Array.isArray(skills) && (
-            <SkillsSection theme={theme} skills={skills} />
-          )}
-          {work && Array.isArray(work) && (
-            <WorkSection theme={theme} work={work} />
-          )}
+          {sectionsOrder.map((sectionName) => {
+            if (sectionName === "basics" && basics) {
+              return (
+                <BasicsSection
+                  key={sectionName}
+                  theme={theme}
+                  basics={basics}
+                />
+              );
+            }
 
-          {projects && Array.isArray(projects) && (
-            <ProjectsSection theme={theme} projects={projects} />
-          )}
+            if (sectionName === "skills" && Array.isArray(skills)) {
+              return (
+                <SkillsSection
+                  key={sectionName}
+                  theme={theme}
+                  skills={skills}
+                />
+              );
+            }
 
-          {education && Array.isArray(education) && (
-            <EducationSection theme={theme} education={education} />
-          )}
+            if (sectionName === "work" && Array.isArray(work)) {
+              return (
+                <WorkSection key={sectionName} theme={theme} work={work} />
+              );
+            }
 
-          {awards && Array.isArray(awards) && (
-            <AwardsSection theme={theme} awards={awards} />
-          )}
+            if (sectionName === "projects" && Array.isArray(projects)) {
+              return (
+                <ProjectsSection
+                  key={sectionName}
+                  theme={theme}
+                  projects={projects}
+                />
+              );
+            }
 
-          {certificates && Array.isArray(certificates) && (
-            <CertificatesSection theme={theme} certificates={certificates} />
-          )}
+            if (sectionName === "education" && Array.isArray(education)) {
+              return (
+                <EducationSection
+                  key={sectionName}
+                  theme={theme}
+                  education={education}
+                />
+              );
+            }
 
-          {publications && Array.isArray(publications) && (
-            <PublicationsSection theme={theme} publications={publications} />
-          )}
+            if (sectionName === "awards" && Array.isArray(awards)) {
+              return (
+                <AwardsSection
+                  key={sectionName}
+                  theme={theme}
+                  awards={awards}
+                />
+              );
+            }
 
-          {volunteer && Array.isArray(volunteer) && (
-            <VolunterrSection theme={theme} volunteer={volunteer} />
-          )}
+            if (sectionName === "certificates" && Array.isArray(certificates)) {
+              return (
+                <CertificatesSection
+                  key={sectionName}
+                  theme={theme}
+                  certificates={certificates}
+                />
+              );
+            }
+
+            if (sectionName === "publications" && Array.isArray(publications)) {
+              return (
+                <PublicationsSection
+                  key={sectionName}
+                  theme={theme}
+                  publications={publications}
+                />
+              );
+            }
+
+            if (sectionName === "volunteer" && Array.isArray(volunteer)) {
+              return (
+                <VolunterrSection
+                  key={sectionName}
+                  theme={theme}
+                  volunteer={volunteer}
+                />
+              );
+            }
+
+            return null;
+          })}
         </VStack>
       </Page>
     </Document>

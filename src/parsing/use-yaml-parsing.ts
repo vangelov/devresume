@@ -26,7 +26,7 @@ export function useYAMLParsing({ onYAMLParsed }: Props) {
 
     if (process.env.NODE_ENV !== "test") {
       if (json) console.log("JSON:", json);
-      if (errors) console.log("Errors:", errors);
+      if (errors) console.error("Errors:", errors);
     }
 
     onYAMLParsed(yaml, json);
