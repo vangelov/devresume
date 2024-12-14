@@ -81,7 +81,8 @@ export function createTypeHighlighter() {
   function renderFieldEnd({
     markdown = false,
     date = false,
-  }: { markdown?: boolean; date?: boolean } = {}) {
+    comment,
+  }: { markdown?: boolean; date?: boolean; comment?: string } = {}) {
     return (
       <>
         <span className="Schema-Plain">;</span>
@@ -89,6 +90,7 @@ export function createTypeHighlighter() {
           <span className="Schema-Comment"> // supports Markdown subset</span>
         )}
         {date && <span className="Schema-Comment"> // YYYY or YYYY-MM</span>}
+        {comment && <span className="Schema-Comment"> // {comment}</span>}
         <br />
       </>
     );
@@ -135,7 +137,7 @@ export function createTypeHighlighter() {
 
   function addArrayOfStringsField(
     name: string,
-    { markdown = false }: { markdown?: boolean } = {}
+    { markdown = false, comment }: { markdown?: boolean; comment?: string } = {}
   ) {
     result.push(
       <Fragment key={lastKey++}>
@@ -144,7 +146,7 @@ export function createTypeHighlighter() {
         <span className="Schema-Plain">&lt;</span>
         <span className="Schema-Type">string</span>
         <span className="Schema-Plain">&gt;</span>
-        {renderFieldEnd({ markdown })}
+        {renderFieldEnd({ markdown, comment })}
       </Fragment>
     );
   }

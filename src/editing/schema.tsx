@@ -87,6 +87,9 @@ function createHighlightedElements() {
   highligher.pushObject("meta");
   highligher.addStringField("accentColor");
   highligher.addNumberField("baseFontSize");
+  highligher.addArrayOfStringsField("sectionsOrder", {
+    comment: `e.g., ["basics", "work", "education", ...]`,
+  });
   highligher.pop();
 
   highligher.pop();
