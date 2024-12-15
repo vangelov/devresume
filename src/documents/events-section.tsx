@@ -1,5 +1,5 @@
 import { Text, Link } from "@react-pdf/renderer";
-import { Section } from "./section";
+import { Section, SectionProps } from "./section";
 import { HStack, VStack } from "./stack";
 import { RichText } from "./rich-text";
 import { Fragment, ReactElement, ReactNode } from "react";
@@ -97,15 +97,16 @@ export function EventItem({
 
 //
 
-type EventSectionProps = {
-  title: string;
-  children: ReactNode;
-  theme: Theme;
-};
+export type EventsSectionProps = SectionProps;
 
-export function EventsSection({ title, children, theme }: EventSectionProps) {
+export function EventsSection({
+  title,
+  children,
+  theme,
+  ...rest
+}: EventsSectionProps) {
   return (
-    <Section theme={theme} title={title}>
+    <Section theme={theme} title={title} {...rest}>
       <VStack gap={theme.space[8]}>{children}</VStack>
     </Section>
   );

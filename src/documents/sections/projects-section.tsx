@@ -3,6 +3,7 @@ import {
   EventHighlightItem,
   EventItem,
   EventsSection,
+  EventsSectionProps,
 } from "../events-section";
 import { Theme } from "../theme";
 
@@ -37,14 +38,17 @@ export function ProjectItem({ project, theme }: ProjectItemProps) {
 
 //
 
-type SectionProps = {
+type ProjectsSectionProps = {
   projects: Array<Project | null>;
-  theme: Theme;
-};
+} & EventsSectionProps;
 
-export function ProjectsSection({ projects, theme }: SectionProps) {
+export function ProjectsSection({
+  projects,
+  theme,
+  ...rest
+}: ProjectsSectionProps) {
   return (
-    <EventsSection theme={theme} title="Projects">
+    <EventsSection theme={theme} title="Projects" {...rest}>
       {projects.map(
         (project, index) =>
           project && <ProjectItem key={index} theme={theme} project={project} />

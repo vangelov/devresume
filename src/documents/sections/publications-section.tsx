@@ -1,6 +1,10 @@
 import { Publication } from "../../types";
 import { Text } from "@react-pdf/renderer";
-import { EventItem, EventsSection } from "../events-section";
+import {
+  EventItem,
+  EventsSection,
+  EventsSectionProps,
+} from "../events-section";
 import { ReactElement } from "react";
 import { Theme } from "../theme";
 
@@ -29,14 +33,17 @@ export function PublicationItem({ publication, theme }: PublicationItemProps) {
 
 //
 
-type SectionProps = {
+type PublicationsSectionProps = {
   publications: Array<Publication | null>;
-  theme: Theme;
-};
+} & EventsSectionProps;
 
-export function PublicationsSection({ publications, theme }: SectionProps) {
+export function PublicationsSection({
+  publications,
+  theme,
+  ...rest
+}: PublicationsSectionProps) {
   return (
-    <EventsSection theme={theme} title="Publications">
+    <EventsSection theme={theme} title="Publications" {...rest}>
       {publications.map(
         (publication, index) =>
           publication && (

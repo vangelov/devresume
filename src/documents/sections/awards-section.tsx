@@ -1,6 +1,10 @@
 import { Award } from "../../types";
 import { Text } from "@react-pdf/renderer";
-import { EventItem, EventsSection } from "../events-section";
+import {
+  EventItem,
+  EventsSection,
+  EventsSectionProps,
+} from "../events-section";
 import { ReactElement } from "react";
 import { Theme } from "../theme";
 
@@ -29,14 +33,13 @@ export function AwardItem({ award, theme }: AwardItemProps) {
 
 //
 
-type SectionProps = {
+export type AwardsSectionProps = {
   awards: Array<Award | null>;
-  theme: Theme;
-};
+} & EventsSectionProps;
 
-export function AwardsSection({ awards, theme }: SectionProps) {
+export function AwardsSection({ awards, theme, ...rest }: AwardsSectionProps) {
   return (
-    <EventsSection theme={theme} title="Awards">
+    <EventsSection theme={theme} title="Awards" {...rest}>
       {awards.map(
         (award, index) =>
           award && <AwardItem key={index} theme={theme} award={award} />

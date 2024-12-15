@@ -86,6 +86,7 @@ export type Meta = {
   accentColor?: string;
   baseFontSize?: number;
   sectionsOrder?: ResumeSectionName[];
+  sectionsPageBreaks?: ResumeSectionName[];
 };
 
 export type Resume = {

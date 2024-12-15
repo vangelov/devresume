@@ -4,6 +4,7 @@ import {
   EventHighlightItem,
   EventItem,
   EventsSection,
+  EventsSectionProps,
 } from "../events-section";
 import { ReactElement } from "react";
 import { Theme } from "../theme";
@@ -53,14 +54,17 @@ export function EducationPlaceItem({
 
 //
 
-type SectionProps = {
+type EducationSectionProps = {
   education: Array<EducationPlace | null>;
-  theme: Theme;
-};
+} & EventsSectionProps;
 
-export function EducationSection({ education, theme }: SectionProps) {
+export function EducationSection({
+  education,
+  theme,
+  ...rest
+}: EducationSectionProps) {
   return (
-    <EventsSection theme={theme} title="Education">
+    <EventsSection theme={theme} title="Education" {...rest}>
       {education.map(
         (educationPlace, index) =>
           educationPlace && (

@@ -2,8 +2,7 @@ import { Text, View } from "@react-pdf/renderer";
 import { Section } from "./section";
 import { HStack, VStack } from "./stack";
 import { RichText } from "./rich-text";
-import { ReactNode } from "react";
-import { Theme } from "./theme";
+import { EventsSectionProps } from "./events-section";
 
 type GroupItemProps = {
   title?: string;
@@ -33,15 +32,16 @@ export function GroupItem({ title, description }: GroupItemProps) {
 
 //
 
-type EventSectionProps = {
-  title: string;
-  children: ReactNode;
-  theme: Theme;
-};
+export type GroupedSectionProps = EventsSectionProps;
 
-export function GroupedSection({ title, children, theme }: EventSectionProps) {
+export function GroupedSection({
+  title,
+  children,
+  theme,
+  ...rest
+}: GroupedSectionProps) {
   return (
-    <Section theme={theme} title={title}>
+    <Section theme={theme} title={title} {...rest}>
       <VStack gap={theme.space[7]}>{children}</VStack>
     </Section>
   );

@@ -1,7 +1,6 @@
 import { Resume } from "../types";
 import { Page, Document, StyleSheet } from "@react-pdf/renderer";
 import { BasicsSection } from "./sections/basics-section";
-import { VStack } from "./stack";
 import {
   AwardsSection,
   CertificatesSection,
@@ -9,13 +8,15 @@ import {
   ProjectsSection,
   PublicationsSection,
   SkillsSection,
-  VolunterrSection,
+  VolunteerSection,
   WorkSection,
 } from "./sections";
 import { Theme, createTheme } from "./theme";
 import { Bar } from "./bar";
 import { useMemo } from "react";
 import { getSectionsOrder } from "./utils";
+import { SectionProps } from "./section";
+import { useHasPageBreak } from "./use-has-page-break";
 
 type Props = {
   resume: Resume;
@@ -59,101 +60,107 @@ export function ResumeDocument({ resume }: Props) {
   );
   const styles = createStyles(theme);
 
+  const hasPageBreak = useHasPageBreak(meta);
+
   return (
     <Document>
       <Page style={styles.page} size="A4">
         <Bar theme={theme} />
-        <VStack gap={theme.space[10]}>
-          {sectionsOrder.map((sectionName) => {
-            if (sectionName === "basics" && basics) {
-              return (
-                <BasicsSection
-                  key={sectionName}
-                  theme={theme}
-                  basics={basics}
-                />
-              );
-            }
 
-            if (sectionName === "skills" && Array.isArray(skills)) {
-              return (
-                <SkillsSection
-                  key={sectionName}
-                  theme={theme}
-                  skills={skills}
-                />
-              );
-            }
+        {sectionsOrder.map((sectionName) => {
+          const commonProps: SectionProps = {
+            theme,
+            hasPageBreak: hasPageBreak(sectionName),
+          };
 
-            if (sectionName === "work" && Array.isArray(work)) {
-              return (
-                <WorkSection key={sectionName} theme={theme} work={work} />
-              );
-            }
+          if (sectionName === "basics" && basics) {
+            return (
+              <BasicsSection
+                {...commonProps}
+                key={sectionName}
+                basics={basics}
+              />
+            );
+          }
 
-            if (sectionName === "projects" && Array.isArray(projects)) {
-              return (
-                <ProjectsSection
-                  key={sectionName}
-                  theme={theme}
-                  projects={projects}
-                />
-              );
-            }
+          if (sectionName === "skills" && Array.isArray(skills)) {
+            return (
+              <SkillsSection
+                {...commonProps}
+                key={sectionName}
+                skills={skills}
+              />
+            );
+          }
 
-            if (sectionName === "education" && Array.isArray(education)) {
-              return (
-                <EducationSection
-                  key={sectionName}
-                  theme={theme}
-                  education={education}
-                />
-              );
-            }
+          if (sectionName === "work" && Array.isArray(work)) {
+            return (
+              <WorkSection {...commonProps} key={sectionName} work={work} />
+            );
+          }
 
-            if (sectionName === "awards" && Array.isArray(awards)) {
-              return (
-                <AwardsSection
-                  key={sectionName}
-                  theme={theme}
-                  awards={awards}
-                />
-              );
-            }
+          if (sectionName === "projects" && Array.isArray(projects)) {
+            return (
+              <ProjectsSection
+                {...commonProps}
+                key={sectionName}
+                projects={projects}
+              />
+            );
+          }
 
-            if (sectionName === "certificates" && Array.isArray(certificates)) {
-              return (
-                <CertificatesSection
-                  key={sectionName}
-                  theme={theme}
-                  certificates={certificates}
-                />
-              );
-            }
+          if (sectionName === "education" && Array.isArray(education)) {
+            return (
+              <EducationSection
+                {...commonProps}
+                key={sectionName}
+                education={education}
+              />
+            );
+          }
 
-            if (sectionName === "publications" && Array.isArray(publications)) {
-              return (
-                <PublicationsSection
-                  key={sectionName}
-                  theme={theme}
-                  publications={publications}
-                />
-              );
-            }
+          if (sectionName === "awards" && Array.isArray(awards)) {
+            return (
+              <AwardsSection
+                {...commonProps}
+                key={sectionName}
+                awards={awards}
+              />
+            );
+          }
 
-            if (sectionName === "volunteer" && Array.isArray(volunteer)) {
-              return (
-                <VolunterrSection
-                  key={sectionName}
-                  theme={theme}
-                  volunteer={volunteer}
-                />
-              );
-            }
+          if (sectionName === "certificates" && Array.isArray(certificates)) {
+            return (
+              <CertificatesSection
+                {...commonProps}
+                key={sectionName}
+                certificates={certificates}
+              />
+            );
+          }
 
-            return null;
-          })}
-        </VStack>
+          if (sectionName === "publications" && Array.isArray(publications)) {
+            return (
+              <PublicationsSection
+                {...commonProps}
+                key={sectionName}
+                publications={publications}
+              />
+            );
+          }
+
+          if (sectionName === "volunteer" && Array.isArray(volunteer)) {
+            return (
+              <VolunteerSection
+                {...commonProps}
+                key={sectionName}
+                volunteer={volunteer}
+              />
+            );
+          }
+
+          return null;
+        })}
       </Page>
     </Document>
   );

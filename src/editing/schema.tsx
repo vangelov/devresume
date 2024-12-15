@@ -88,7 +88,10 @@ function createHighlightedElements() {
   highligher.addStringField("accentColor");
   highligher.addNumberField("baseFontSize");
   highligher.addArrayOfStringsField("sectionsOrder", {
-    comment: `e.g., ["basics", "work", "education", ...]`,
+    comment: `how are sections ordered, e.g., ["basics", "work", "education", ...]`,
+  });
+  highligher.addArrayOfStringsField("sectionsPageBreaks", {
+    comment: `which sections should start on a new page, e.g., ["basics", "work", "education", ...]`,
   });
   highligher.pop();
 

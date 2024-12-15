@@ -92,3 +92,26 @@ for (const { name, sectionsOrder } of orders) {
     await document.expect().toHaveScreenshotsOfPages();
   });
 }
+
+test(`should each section in sectionsPageBreaks on a new page`, async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const editor = Editor(page);
+  await editor.clearAndRefresh();
+
+  for (const { yaml } of sections) {
+    await editor.type(yaml);
+  }
+
+  await editor.type(
+    `meta:\n  sectionsPageBreaks:\n${sections
+      .map(({ name }) => `    - ${name}`)
+      .join("\n")}`
+  );
+
+  const document = PDFDocument(page);
+  await document.waitToAppear();
+  await document.expect().toHaveScreenshotsOfPages();
+});

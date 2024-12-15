@@ -3,6 +3,7 @@ import { Link, Text } from "@react-pdf/renderer";
 import {
   EventHighlightItem,
   EventItem,
+  EventsSectionProps,
   EventsSection,
 } from "../events-section";
 import { ReactElement } from "react";
@@ -58,14 +59,13 @@ export function JobItem({ job, theme }: JobItemProps) {
 
 //
 
-type SectionProps = {
+type WorkSectionProps = {
   work: Array<Job | null>;
-  theme: Theme;
-};
+} & EventsSectionProps;
 
-export function WorkSection({ work, theme }: SectionProps) {
+export function WorkSection({ work, theme, ...rest }: WorkSectionProps) {
   return (
-    <EventsSection theme={theme} title="Work Experience">
+    <EventsSection theme={theme} title="Work Experience" {...rest}>
       {work.map(
         (job, index) => job && <JobItem key={index} theme={theme} job={job} />
       )}

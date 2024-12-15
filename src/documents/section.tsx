@@ -2,29 +2,38 @@ import { ReactNode, useMemo } from "react";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
 import { Theme } from "./theme";
 
-type Props = {
+export type SectionProps = {
   title?: string;
-  children: ReactNode;
+  children?: ReactNode;
   theme: Theme;
+  hasPageBreak?: boolean;
 };
 
 function createStyles(theme: Theme) {
   return StyleSheet.create({
-    root: {
+    title: {
       fontSize: theme.fontSize[1],
       color: theme.color.accent,
       marginBottom: theme.space[5],
       fontWeight: "medium",
     },
+    root: {
+      marginBottom: theme.space[10],
+    },
   });
 }
 
-export function Section({ title, children, theme }: Props) {
+export function Section({
+  title,
+  children,
+  theme,
+  hasPageBreak,
+}: SectionProps) {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <View>
-      {title && <Text style={styles.root}>{title}</Text>}
+    <View style={styles.root} break={hasPageBreak}>
+      {title && <Text style={styles.title}>{title}</Text>}
       {children}
     </View>
   );

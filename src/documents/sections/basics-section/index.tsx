@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
-import { Section } from "../../section";
+import { Section, SectionProps } from "../../section";
 import { HStack, VStack } from "../../stack";
 import { Basics } from "../../../types";
 import { RichText } from "../../rich-text";
@@ -9,8 +9,7 @@ import { useMemo } from "react";
 
 export type Props = {
   basics: Basics;
-  theme: Theme;
-};
+} & SectionProps;
 
 function createStyles(theme: Theme) {
   return StyleSheet.create({
@@ -22,11 +21,11 @@ function createStyles(theme: Theme) {
   });
 }
 
-export function BasicsSection({ basics, theme }: Props) {
+export function BasicsSection({ basics, theme, ...rest }: Props) {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <Section theme={theme}>
+    <Section theme={theme} {...rest}>
       <VStack gap={theme.space[5]}>
         <HStack>
           {basics.name && <Text style={styles.name}>{basics.name}</Text>}

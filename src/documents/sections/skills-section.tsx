@@ -1,6 +1,9 @@
 import { Skill } from "../../types";
-import { GroupItem, GroupedSection } from "../grouped-section";
-import { Theme } from "../theme";
+import {
+  GroupItem,
+  GroupedSection,
+  GroupedSectionProps,
+} from "../grouped-section";
 
 type SkillItemProps = {
   skill: Skill;
@@ -16,14 +19,13 @@ export function SkillItem({ skill }: SkillItemProps) {
 
 //
 
-type Props = {
+type SkillsSectionProps = {
   skills: Array<Skill | null>;
-  theme: Theme;
-};
+} & GroupedSectionProps;
 
-export function SkillsSection({ skills, theme }: Props) {
+export function SkillsSection({ skills, theme, ...rest }: SkillsSectionProps) {
   return (
-    <GroupedSection theme={theme} title="Skills">
+    <GroupedSection theme={theme} title="Skills" {...rest}>
       {skills.map(
         (skill, index) => skill && <SkillItem key={index} skill={skill} />
       )}

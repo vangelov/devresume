@@ -3,6 +3,7 @@ import { Text } from "@react-pdf/renderer";
 import { EventItem, EventsSection } from "../events-section";
 import { ReactElement } from "react";
 import { Theme } from "../theme";
+import { SectionProps } from "../section";
 
 export type CertificateItemProps = {
   certificate: Certificate;
@@ -29,14 +30,17 @@ export function CerticateItem({ certificate, theme }: CertificateItemProps) {
 
 //
 
-type SectionProps = {
+type CertificatesSection = {
   certificates: Array<Certificate | null>;
-  theme: Theme;
-};
+} & SectionProps;
 
-export function CertificatesSection({ theme, certificates }: SectionProps) {
+export function CertificatesSection({
+  theme,
+  certificates,
+  ...rest
+}: CertificatesSection) {
   return (
-    <EventsSection theme={theme} title="Certificates">
+    <EventsSection theme={theme} title="Certificates" {...rest}>
       {certificates.map(
         (certificate, index) =>
           certificate && (

@@ -3,6 +3,7 @@ import { Link } from "@react-pdf/renderer";
 import {
   EventHighlightItem,
   EventItem,
+  EventsSectionProps,
   EventsSection,
 } from "../events-section";
 import { ReactElement } from "react";
@@ -55,12 +56,11 @@ export function VolunteeringItem({
 
 //
 
-type SectionProps = {
+type VolunteerSectionProps = {
   volunteer: Array<Voluteering | null>;
-  theme: Theme;
-};
+} & EventsSectionProps;
 
-export function VolunterrSection({ volunteer, theme }: SectionProps) {
+export function VolunteerSection({ volunteer, theme }: VolunteerSectionProps) {
   return (
     <EventsSection theme={theme} title="Volunteer">
       {volunteer.map(
