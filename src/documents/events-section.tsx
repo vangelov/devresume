@@ -83,7 +83,7 @@ export function EventItem({
 
           <Text style={{ color: theme.color.lightText }}>
             {startDate && formatDate(startDate)}
-            {endDate ? ` - ${formatDate(endDate)}` : null}
+            {endDate ? ` - ${formatDate(endDate)}` : " - Present"}
           </Text>
         </HStack>
 
