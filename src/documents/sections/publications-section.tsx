@@ -25,7 +25,7 @@ export function PublicationItem({ publication, theme }: PublicationItemProps) {
       description={summary}
       url={url}
       titleDetails={titleDetails}
-      startDate={releaseDate}
+      date={releaseDate}
       theme={theme}
     />
   );

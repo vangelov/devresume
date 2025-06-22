@@ -29,6 +29,7 @@ type EventItemProps = {
   children?: ReactNode;
   startDate?: string | number;
   endDate?: string | number;
+  date?: string | number;
   theme: Theme;
 };
 
@@ -40,6 +41,7 @@ export function EventItem({
   titleDetails,
   startDate,
   endDate,
+  date,
   theme,
 }: EventItemProps) {
   return (
@@ -82,8 +84,14 @@ export function EventItem({
           </Text>
 
           <Text style={{ color: theme.color.lightText }}>
-            {startDate && formatDate(startDate)}
-            {endDate ? ` - ${formatDate(endDate)}` : " - Present"}
+            {date ? (
+              formatDate(date)
+            ) : startDate || endDate ? (
+              <>
+                {startDate && formatDate(startDate)}
+                {endDate ? ` - ${formatDate(endDate)}` : " - Present"}
+              </>
+            ) : null}
           </Text>
         </HStack>
 

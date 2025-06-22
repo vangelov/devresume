@@ -26,7 +26,7 @@ export function AwardItem({ award, theme }: AwardItemProps) {
       title={award.title}
       description={award.summary}
       titleDetails={titleDetails}
-      startDate={award.date}
+      date={award.date}
     />
   );
 }

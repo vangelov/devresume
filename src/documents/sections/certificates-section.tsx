@@ -23,7 +23,7 @@ export function CerticateItem({ certificate, theme }: CertificateItemProps) {
       theme={theme}
       url={certificate.url}
       titleDetails={titleDetails}
-      startDate={certificate.date}
+      date={certificate.date}
     />
   );
 }
